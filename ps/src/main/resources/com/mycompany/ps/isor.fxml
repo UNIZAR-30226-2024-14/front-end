@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.ISoR" style="-fx-background-color: lightblue;">
+    <children>
+        <Button styleClass="btn-primary, btn-lg" prefWidth="200" prefHeight="50" text="INICIAR SESIÓN" onAction="#iniciarSesion" />
+        <Button styleClass="btn-primary, btn-lg" prefWidth="200" prefHeight="50" text="REGISTRARSE" onAction="#registro" />
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
