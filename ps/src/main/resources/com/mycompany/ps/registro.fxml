@@ -9,10 +9,14 @@
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Registro" style="-fx-background-color: lightblue;">
     <children>
+        <Label text="Nombre de usuario:" styleClass="h4" />
+        <TextField fx:id="usernameField" maxWidth="200" promptText="Introduce tu correo electrónico" />
         <Label text="Correo electrónico:" styleClass="h4" />
         <TextField fx:id="correoField" maxWidth="200" promptText="Introduce tu correo electrónico" />
         <Label text="Contraseña:" styleClass="h4" />
-        <PasswordField fx:id="contrasenaField" maxWidth="200" promptText="Introduce tu contraseña" />
+        <PasswordField fx:id="contrasena1Field" maxWidth="200" promptText="Introduce tu contraseña" />
+        <Label text="Repetir contraseña:" styleClass="h4" />
+        <PasswordField fx:id="contrasena2Field" maxWidth="200" promptText="Introduce tu contraseña" />
         <Button text="COMPLETAR REGISTRO" styleClass="btn-primary, btn-lg" onAction="#irAMenu" />
     </children>
     <padding>
