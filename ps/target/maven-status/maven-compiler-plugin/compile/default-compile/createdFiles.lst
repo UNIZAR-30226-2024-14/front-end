@@ -1,8 +1,10 @@
-com/mycompany/ps/api/Auth.class
-com/mycompany/ps/Registro.class
-com/mycompany/ps/App.class
-com/mycompany/ps/Bienvenida.class
-com/mycompany/ps/Menu.class
+com\mycompany\ps\api\Auth.class
+com\mycompany\ps\Exito_registro.class
+com\mycompany\ps\Bienvenida.class
+com\mycompany\ps\ISoR.class
+com\mycompany\ps\Menu.class
+com\mycompany\ps\IniciarSesion.class
 module-info.class
-com/mycompany/ps/ISoR.class
-com/mycompany/ps/IniciarSesion.class
+com\mycompany\ps\App.class
+com\mycompany\ps\Registro.class
+com\mycompany\ps\Exito_IR.class

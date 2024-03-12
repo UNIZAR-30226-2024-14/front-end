@@ -30,6 +30,6 @@ public class Registro {
         }
         String token = Auth.register(username, email, pwd1);
         System.out.println(token);
-//        App.setRoot("secondary");
+        App.setRoot("exito_registro");
     }
 }
