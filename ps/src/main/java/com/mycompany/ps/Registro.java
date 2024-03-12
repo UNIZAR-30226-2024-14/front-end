@@ -1,6 +1,7 @@
 package com.mycompany.ps;
 
 import java.io.IOException;
+import java.util.Map;
 
 import com.mycompany.ps.api.Auth;
 import javafx.fxml.FXML;
@@ -27,9 +28,17 @@ public class Registro {
         String pwd2 = contrasena2Field.getText();
         if (!pwd1.equals(pwd2)) {
             System.out.println("Las contraseñas no coinciden");
+            return;
         }
-        String token = Auth.register(username, email, pwd1);
-        System.out.println(token);
+        Map response = Auth.register(username, email, pwd1);
+        if ((int) response.get("code") != 200) {
+            System.out.println("Error al registrar");
+            System.out.println("Razon: " + response.get("detail"));
+            return;
+        } else {
+            System.out.println("Registro exitoso");
+            System.out.println("Token: " + response.get("access_token"));
+        }
         App.setRoot("exito_registro");
     }
 }

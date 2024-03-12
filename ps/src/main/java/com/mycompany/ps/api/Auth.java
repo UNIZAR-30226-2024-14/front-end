@@ -4,11 +4,14 @@
  */
 package com.mycompany.ps.api;
 
+import com.google.gson.Gson;
+import com.mycompany.ps.api.http.HttpRequest;
+import com.mycompany.ps.api.http.HttpResponse;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,70 +23,61 @@ import java.util.Map;
 public class Auth {
   private static final String API_URL = "http://64.225.78.184:8000/";
 
-  public static String register(String username, String email, String password) throws IOException {
-    URL url = new URL(API_URL + "users/register");
-    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+  public static Map register(String username, String email, String password) throws IOException {
+    // Esto es el ejemplo de peticion que de la API
+    // curl -X 'POST' \
+    //   'http://localhost:8000/users/register' \
+    //   -H 'accept: application/json' \
+    //   -H 'Content-Type: application/json' \
+    //   -d '{
+    //   "username": "string",
+    //   "email": "string",
+    //   "password": "string"
+    // }'
 
-    conn.setRequestMethod("POST");
-    conn.setRequestProperty("Accept", "application/json");
-    conn.setRequestProperty("Content-Type", "application/json");
-    conn.setDoOutput(true);
+    // Se puede traducir a:
+    String endpoint = API_URL + "users/register";
+    String[] headers = {
+      "accept: application/json",
+      "Content-Type: application/json"
+    };
+    String data = "{\"username\": \"" + username + "\", \"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
 
-    String input = "{\"username\": \"" + username + "\", \"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
+    HttpResponse response = HttpRequest.POST(endpoint, headers, data);
 
-    conn.getOutputStream().write(input.getBytes());
+    // Pasar a Map
+    Gson gson = new Gson();
+    Map jsonMap = new HashMap<>();
+    jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
+    jsonMap.put("code", response.getCode());
 
-    int responseCode = conn.getResponseCode();
-    System.out.println("POST Response Code :: " + responseCode);
-//    if (responseCode != 201) {
-//      throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-//    }
-
-    BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-    String output;
-    StringBuilder response = new StringBuilder();
-    while ((output = br.readLine()) != null) {
-      response.append(output);
-    }
-    br.close();
-
-    // TODO: Habria que convertirlo a json / hashmap
-    return response.toString();
+    return jsonMap;
   }
   
-  public static String iniciarSesion(String username, String password) throws IOException {
-        URL url = new URL(API_URL + "users/token");
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+  public static Map login(String username, String password) throws IOException {
+    // Esto es el ejemplo de peticion que de la API
+//   curl -X 'POST' \
+//  'http://localhost:8000/users/token' \
+//  -H 'accept: application/json' \
+//  -H 'Content-Type: application/x-www-form-urlencoded' \
+//  -d 'grant_type=&username=test&password=test&scope=&client_id=&client_secret='
 
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setDoOutput(true);
+    // Se puede traducir a:
+    String endpoint = API_URL + "users/token";
+    String[] headers = {
+      "Accept: application/json",
+      "Content-Type: application/x-www-form-urlencoded"
+    };
+    String data = "grant_type=&username=" + username + "&password=" + password + "&scope=&client_id=&client_secret=";
 
-        String input = "grant_type=&username=" + username + "&password=" + password + "&scope=&client_id=&client_secret=";
+    HttpResponse response = HttpRequest.POST(endpoint, headers, data);
 
-        conn.getOutputStream().write(input.getBytes());
+    // Pasar a Map
+    Gson gson = new Gson();
+    Map jsonMap = new HashMap<>();
+    jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
+    jsonMap.put("code", response.getCode());
 
-        int responseCode = conn.getResponseCode();
-        System.out.println("POST Response Code :: " + responseCode);
-
-        BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-        String output;
-        StringBuilder response = new StringBuilder();
-        while ((output = br.readLine()) != null) {
-            response.append(output);
-        }
-        br.close();
-
-        // Convertir la respuesta JSON a un HashMap
-        Map<String, String> jsonMap = new HashMap<>();
-        String[] keyValuePairs = response.toString().replace("{", "").replace("}", "").split(",");
-        for (String pair : keyValuePairs) {
-            String[] entry = pair.split(":");
-            jsonMap.put(entry[0].trim(), entry[1].trim());
-        }
-
-        // Devolver el token de acceso
-        return jsonMap.get("access_token");
+    return jsonMap;
     }
 }
