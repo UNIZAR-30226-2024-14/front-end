@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-poker',
   templateUrl: './poker.component.html',
-  styleUrls: ['./poker.component.scss']
+  styleUrls: ['./poker.component.scss', '../../../styles.scss'],
 })
-export class PokerComponent {
+export class PokerComponent implements OnInit {
+  constructor() {}
 
+  ngOnInit(): void {}
 }
