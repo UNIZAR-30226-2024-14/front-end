@@ -1,0 +1,30 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="assets/img/BlackJackPokerLogo.png" style="margin-left: 30px;" alt="Logo" width="60" height="60">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav" style="padding-right: 20px;">
+                <li class="nav-item" [ngClass]="{'active': isActive('/')}">
+                    <a class="nav-link" routerLink="/">Home</a>
+                </li>
+                <li class="nav-item" [ngClass]="{'active': isActive('/login')}">
+                    <a class="nav-link" routerLink="/login">Login</a>
+                </li>
+                <li class="nav-item" [ngClass]="{'active': isActive('/signup')}">
+                    <a class="nav-link" routerLink="/signup">Sign Up</a>
+                </li>
+                <li class="nav-item" [ngClass]="{'active': isActive('/blackjack')}">
+                    <a class="nav-link" routerLink="/blackjack">Blackjack</a>
+                </li>
+                <li class="nav-item" [ngClass]="{'active': isActive('/poker')}">
+                    <a class="nav-link" routerLink="/poker">Poker</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
