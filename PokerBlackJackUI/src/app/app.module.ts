@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { BlackjackComponent } from './components/blackjack/blackjack.component';
 import { PokerComponent } from './components/poker/poker.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PokerComponent } from './components/poker/poker.component';
     SignupComponent,
     BlackjackComponent,
     PokerComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
