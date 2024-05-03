@@ -14,6 +14,7 @@
         <Label text="Contraseña:" styleClass="h4" />
         <PasswordField fx:id="contrasenaField" maxWidth="200" promptText="Introduce tu contraseña" />
         <Button text="INICIAR SESIÓN" styleClass="btn-primary, btn-lg" prefWidth="200" prefHeight="50" onAction="#irAMenu" />
+        <Button text="VOLVER" styleClass="btn-primary, btn-lg" prefWidth="200" prefHeight="50" onAction="#irABienvenida" />
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

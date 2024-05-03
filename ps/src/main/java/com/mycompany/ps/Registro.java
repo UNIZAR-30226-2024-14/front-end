@@ -41,4 +41,9 @@ public class Registro {
         }
         App.setRoot("exito_registro");
     }
+    
+    @FXML
+    private void irABienvenida() throws IOException {
+        App.setRoot("isor");
+    }
 }

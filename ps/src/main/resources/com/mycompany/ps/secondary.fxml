@@ -6,10 +6,9 @@
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Menu" style="-fx-background-color: lightblue;">
     <children>
-        <Button fx:id="jugarBJ" text="JUGAR BLACKJACK" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
-        <Button fx:id="jugarPoker" text="JUGAR POKER" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
-        <Button fx:id="tienda" text="TIENDA" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
-        <Button fx:id="secondaryButton" text="VOLVER" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#exitApplication" />
+        <Button fx:id="jugar" text="JUGAR" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
+        <Button fx:id="perfil" text="PERFIL" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
+        <Button fx:id="salir" text="SALIR" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#exitApplication" />
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

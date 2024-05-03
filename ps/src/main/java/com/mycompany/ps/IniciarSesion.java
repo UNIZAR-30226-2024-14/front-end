@@ -30,4 +30,9 @@ public class IniciarSesion {
         }
         App.setRoot("exito_ir");
     }
+    
+    @FXML
+    private void irABienvenida() throws IOException {
+        App.setRoot("isor");
+    }
 }
