@@ -7,6 +7,7 @@ com\mycompany\ps\IniciarSesion.class
 module-info.class
 com\mycompany\ps\App.class
 com\mycompany\ps\Registro.class
+com\mycompany\ps\Juego.class
 com\mycompany\ps\api\http\HttpRequest.class
 com\mycompany\ps\api\http\HttpResponse.class
 com\mycompany\ps\Exito_IR.class
