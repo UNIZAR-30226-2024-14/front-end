@@ -3,9 +3,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Juego" fx:id="vbox" style="-fx-background-image: url('images/fondo1.jpg');">
     <children>
+        <Button>
+            <graphic>
+                <ImageView>
+                    <Image url="/images/exito.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
         <Button fx:id="comienzo" text="COMENZAR PARTIDA" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#comenzarPartida" />
     </children>
     <padding>
