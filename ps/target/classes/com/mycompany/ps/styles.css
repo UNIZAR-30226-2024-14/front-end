@@ -1,25 +1,27 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-
-/* Estilo para la clase btn-primary */
-.btn-primary {
-    -fx-background-color: #E6B0AA; /* Cambia a un tono rojo claro */
+/* Estilo para la clase btn-primary2 */
+.btn-primary2 {
+    -fx-background-color: #ADD8E6; /* Fondo azul claro */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra normal */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: black; /* Borde negro */
+    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
 
-/* Estilo para la clase btn-lg */
-.btn-lg {
-    -fx-font-size: 16px; /* Cambia el tamaño de fuente */
-    /* Puedes añadir otros estilos según tus preferencias */
+/* Estilo para la clase btn-lg2 */
+.btn-lg2 {
+    -fx-font-size: 16px; /* Tamaño de la fuente normal */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: black; /* Borde negro */
+    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
 
 /* Cambia el color de fondo del VBox a un tono rojo claro */
 .vbox-red {
     -fx-background-color: #f08080; /* light coral */
 }
-
-
-
-

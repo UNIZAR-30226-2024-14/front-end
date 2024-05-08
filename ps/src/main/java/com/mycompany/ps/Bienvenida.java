@@ -4,8 +4,11 @@ import java.io.IOException;
 
 import com.mycompany.ps.api.http.HttpRequest;
 import com.mycompany.ps.api.http.HttpResponse;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class Bienvenida {
 
