@@ -1,6 +1,8 @@
+com\mycompany\ps\Fallo_IR.class
 com\mycompany\ps\api\Auth.class
 com\mycompany\ps\IniciarSesion.class
 module-info.class
+com\mycompany\ps\Fallo_registro.class
 com\mycompany\ps\Registro.class
 com\mycompany\ps\Juego.class
 com\mycompany\ps\api\http\HttpRequest.class

@@ -23,12 +23,13 @@ public class IniciarSesion {
         if ((int) response.get("code") != 200) {
             System.out.println("Error al iniciar sesion");
             System.out.println("Razon: " + response.get("detail"));
-            return;
+            App.setRoot("fallo_ir");
         } else {
             System.out.println("inicio exitoso");
             System.out.println("Token: " + response.get("access_token"));
+            App.setRoot("exito_ir");
         }
-        App.setRoot("exito_ir");
+        
     }
     
     @FXML
