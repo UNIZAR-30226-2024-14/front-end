@@ -1,23 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Juego" fx:id="vbox" style="-fx-background-image: url('images/fondo1.jpg');">
     <children>
+        <HBox alignment="CENTER" spacing="50">
+            <!-- Botón "Hit" a la izquierda -->
+            <Button fx:id="hitButton" text="HIT" prefWidth="100" prefHeight="100" visible="false" onAction="#hitAction"/>
+            
+            <!-- HBox para el crupier -->
+            <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="10">
+                <!-- Este espacio mostrará las cartas del dealer -->
+            </HBox>
+            
+            <!-- Botón "Stand" a la derecha -->
+            <Button fx:id="standButton" text="STAND" prefWidth="100" visible="false" prefHeight="100" onAction="#standAction"/>
+        </HBox>
+        
         <Button fx:id="comienzo" text="COMENZAR PARTIDA" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#comenzarPartida" />
         
-        <!-- HBox para cartas del jugador -->
-        <HBox fx:id="playerCardBox" alignment="CENTER" spacing="10">
-            <!-- Este espacio mostrará las cartas del jugador -->
-        </HBox>
-
-        <!-- HBox para cartas del dealer -->
-        <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="10">
-            <!-- Este espacio mostrará las cartas del dealer -->
+        <!-- HBox para los jugadores con etiquetas para puntos -->
+        <HBox alignment="CENTER" spacing="150">
+            <children>
+                <!-- HBox para el jugador 1 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <HBox fx:id="playerCardBox1" alignment="CENTER" spacing="-100">
+                        <!-- Aquí se mostrarán las cartas del jugador 1 -->
+                    </HBox>
+                    <Label fx:id="puntosJugador1" text="Puntos: 0" visible="false" />
+                </VBox>
+                
+                <!-- HBox para el jugador 2 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <HBox fx:id="playerCardBox2" alignment="CENTER" spacing="-100">
+                        <!-- Aquí se mostrarán las cartas del jugador 2 -->
+                    </HBox>
+                    <Label fx:id="puntosJugador2" text="Puntos: 0" visible="false" />
+                </VBox>
+                
+                <!-- HBox para el jugador 3 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <HBox fx:id="playerCardBox3" alignment="CENTER" spacing="-100">
+                        <!-- Aquí se mostrarán las cartas del jugador 3 -->
+                    </HBox>
+                    <Label fx:id="puntosJugador3" text="Puntos: 0" visible="false" />
+                </VBox>
+                
+                <!-- HBox para el jugador 4 -->
+                <VBox alignment="CENTER" spacing="5">
+                    <HBox fx:id="playerCardBox4" alignment="CENTER" spacing="-100">
+                        <!-- Aquí se mostrarán las cartas del jugador 4 -->
+                    </HBox>
+                    <Label fx:id="puntosJugador4" text="Puntos: 0" visible="false" />
+                </VBox>
+            </children>
         </HBox>
     </children>
     <padding>
