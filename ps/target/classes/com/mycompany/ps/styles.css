@@ -1,27 +1,45 @@
 /* Estilo para la clase btn-primary2 */
 .btn-primary2 {
-    -fx-background-color: #ADD8E6; /* Fondo azul claro */
+    -fx-background-color: #D3D3D3; /* Fondo gris claro */
+    -fx-text-fill: #000000; /* Letra de color blanco */
     -fx-font-weight: normal; /* Letra normal */
     -fx-font-size: 20px; /* Tamaño de la letra normal */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: black; /* Borde negro */
-    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-border-color: #858585; /* Borde blanco */
+    -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
 
 /* Estilo para la clase btn-lg2 */
 .btn-lg2 {
+    -fx-background-color: #D3D3D3; /* Fondo gris claro */
+    -fx-text-fill: #000000; /* Letra de color blanco */
     -fx-font-size: 16px; /* Tamaño de la fuente normal */
     -fx-font-weight: normal; /* Letra normal */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: black; /* Borde negro */
-    -fx-border-width: 1px; /* Ancho del borde */
+    -fx-border-color: #858585; /* Borde blanco */
+    -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
 
-/* Cambia el color de fondo del VBox a un tono rojo claro */
-.vbox-red {
-    -fx-background-color: #f08080; /* light coral */
+/* Estilo para la clase btn-lg2 */
+.btn-lg3 {
+    -fx-background-color: #D3D3D3; /* Fondo gris claro */
+    -fx-text-fill: #000000; /* Letra de color blanco */
+    -fx-font-size: 24px; /* Tamaño de la fuente normal */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: #858585; /* Borde blanco */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
+
+/* Clase para el TextField */
+.username-field {
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-prompt-text-fill: gray; /* Color del promptText (opcional) */
+    -fx-font-size: 16px; /* Tamaño de fuente para el promptText */
 }
