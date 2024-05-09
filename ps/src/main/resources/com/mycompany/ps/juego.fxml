@@ -15,7 +15,7 @@
             <Button fx:id="hitButton" text="HIT" prefWidth="100" prefHeight="100" visible="false" onAction="#hitAction"/>
             
             <!-- HBox para el crupier -->
-            <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="10">
+            <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="-100">
                 <!-- Este espacio mostrará las cartas del dealer -->
             </HBox>
             
