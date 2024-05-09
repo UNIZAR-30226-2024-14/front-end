@@ -7,15 +7,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Exito_IR" style="-fx-background-color: lightblue;">
-    <Text text="¡HAS INICIADO SESIÓN CORRECTAMENTE!" styleClass="h1"/>
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Exito_IR" style="-fx-background-image: url('images/Ok2.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" stylesheets="@/com/mycompany/ps/styles.css">
+    <!-- <Text text="¡HAS INICIADO SESIÓN CORRECTAMENTE!" styleClass="h1"/>
     <ImageView fitWidth="200" fitHeight="200">
-      <image>
-         <Image url="@/images/exito.png" />
-      </image>
-   </ImageView>
-        <Button fx:id="jugarBJ" text="CONTINUAR" styleClass="btn-primary, btn-lg" maxWidth="250" maxHeight="250" onAction="#irAMenu" />
+        <image>
+            <Image url="@/images/exito.png" />
+        </image>
+    </ImageView> -->
+    <Button fx:id="jugarBJ" text="CONTINUAR" styleClass="btn-primary2, btn-lg2" maxWidth="400" maxHeight="600" onAction="#irAMenu" />
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="700.0" />
     </padding>
 </VBox>

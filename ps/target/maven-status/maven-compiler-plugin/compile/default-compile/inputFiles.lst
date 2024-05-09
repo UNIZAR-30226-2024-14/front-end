@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Exito_IR.java
 C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\IniciarSesion.java
 C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Derrota.java
@@ -18,3 +19,20 @@ C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Exit
 C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Empate.java
 C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\ElegirJuego.java
 C:\Users\lucac\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Fallo_registro.java
+=======
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Fallo_registro.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\App.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\module-info.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\api\http\HttpResponse.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Fallo_IR.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Menu.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Bienvenida.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Registro.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Juego.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\ISoR.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\api\Auth.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Exito_IR.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\api\http\HttpRequest.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\Exito_registro.java
+C:\Users\james\Documents\GitHub\front-end\ps\src\main\java\com\mycompany\ps\IniciarSesion.java
+>>>>>>> Stashed changes
