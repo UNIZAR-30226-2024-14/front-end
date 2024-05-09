@@ -8,6 +8,7 @@
     <children>
         <Button fx:id="jugar" text="JUGAR EN LOCAL" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#jugarLocal" />
         <Button fx:id="perfil" text="JUGAR EN LÍNEA" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#jugarOnline" />
+        <Button fx:id="volver" text="VOLVER" styleClass="btn-primary, btn-lg" prefWidth="400" prefHeight="50" onAction="#volver" />
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

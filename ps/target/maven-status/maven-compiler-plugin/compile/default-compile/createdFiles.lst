@@ -1,4 +1,5 @@
 com\mycompany\ps\Fallo_IR.class
+com\mycompany\ps\Empate.class
 com\mycompany\ps\api\http\HttpRequest.class
 com\mycompany\ps\Exito_registro.class
 com\mycompany\ps\Bienvenida.class

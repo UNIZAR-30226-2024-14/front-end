@@ -52,7 +52,7 @@ public class JuegoLocal {
     }
     
     @FXML
-    private void comenzarPartida() {
+    private void comenzarPartida() throws IOException {
         vbox.setStyle("-fx-background-color: green;");
 
         // Ocultar el botón de comienzo y mostrar "Hit" y "Stand"
@@ -77,11 +77,22 @@ public class JuegoLocal {
         
         puntosJugador1.setText("Puntos: " + puntosJugador);
         puntosCrupier.setText("Puntos: " + puntosDealer);
+        
+        if(puntosJugador == 21){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Victoria");
+            alert.setHeaderText(null);
+            alert.setContentText("¡Has alcanzado 21 puntos! Has ganado.");
+            alert.showAndWait();
+            App.setRoot("victoria");
+
+            hitButton.setVisible(false);
+            standButton.setVisible(false);
+        }
     }
     
     @FXML
     private void hitAction() throws IOException {
-        // Obtener el contenedor y la etiqueta del jugador
         HBox playerCardBox = playerCardBox1;
         Label puntosLabel = puntosJugador1;
 
@@ -90,7 +101,7 @@ public class JuegoLocal {
         playerCardBox.getChildren().add(createCardImageView(nuevaCarta));
 
         int valorCarta = getCardValue(nuevaCarta);
-        puntosJugador += valorCarta;
+        puntosJugador += valorCarta; // Sumar el valor de la carta con el valor correcto del As
         puntosLabel.setText("Puntos: " + puntosJugador);
 
         if (puntosJugador > 21) {
@@ -100,7 +111,7 @@ public class JuegoLocal {
             alert.setContentText("Te has pasado de 21 puntos. Has perdido.");
             alert.showAndWait();
             App.setRoot("derrota");
-            
+
             hitButton.setVisible(false);
             standButton.setVisible(false);
         } else if (puntosJugador == 21) {
@@ -115,47 +126,55 @@ public class JuegoLocal {
             standButton.setVisible(false);
         }
     }
-    
-    @FXML
+
+
+        @FXML
     private void standAction() throws IOException {
         while (puntosDealer < 17) {
             Image nuevaCarta = getRandomCardImage();
             dealerCardBox.getChildren().add(createCardImageView(nuevaCarta));
-            puntosDealer += getCardValue(nuevaCarta);
+            puntosDealer += getCardValue(nuevaCarta); // Sumar el valor correcto, considerando el As como 11 o 1
         }
 
         puntosCrupier.setText("Puntos: " + puntosDealer); // Actualizar la etiqueta del crupier
-        
+
         Alert alert;
         if (puntosDealer > 21) {
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Victoria");
             alert.setHeaderText(null);
             alert.setContentText("¡El crupier se pasó de 21! Has ganado.");
+            alert.showAndWait();
             App.setRoot("victoria");
         } else if (puntosDealer == puntosJugador) {
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Empate");
             alert.setHeaderText(null);
             alert.setContentText("¡Es un empate!");
+            alert.showAndWait();
+            App.setRoot("empate");
         } else if (puntosDealer > puntosJugador) {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Derrota");
             alert.setHeaderText(null);
             alert.setContentText("El crupier tiene más puntos. Has perdido.");
+            alert.showAndWait();
             App.setRoot("derrota");
         } else {
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Victoria");
             alert.setHeaderText(null);
             alert.setContentText("¡Has ganado!");
+            alert.showAndWait();
             App.setRoot("victoria");
         }
 
-        alert.showAndWait();
+        
+
         hitButton.setVisible(false);
         standButton.setVisible(false);
     }
+
 
     @FXML
     private void exitApplication() {
@@ -171,11 +190,17 @@ public class JuegoLocal {
     }
     
     private int getCardValue(Image cardImage) {
-        String imageUrl = cardImage.getUrl();
-        String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
-        String cardName = fileName.split("_")[0];
-        int cardNumber = Integer.parseInt(cardName);
+    String imageUrl = cardImage.getUrl();
+    String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1);
+    String cardName = fileName.split("_")[0];
+    int cardNumber = Integer.parseInt(cardName);
 
-        return cardNumber > 10 ? 10 : cardNumber;
+    if (cardNumber == 1) {
+        // Es un As, determinar si debe valer 1 u 11
+        return (puntosJugador + 11 <= 21) ? 11 : 1;
     }
+
+    return cardNumber > 10 ? 10 : cardNumber;
+}
+
 }

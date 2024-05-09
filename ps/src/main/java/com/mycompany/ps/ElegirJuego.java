@@ -16,4 +16,9 @@ public class ElegirJuego {
     private void jugarOnline() throws IOException {
         App.setRoot("juego");
     }
+    
+    @FXML
+    private void volver() throws IOException {
+        App.setRoot("secondary");
+    }
 }
