@@ -43,3 +43,10 @@
     -fx-prompt-text-fill: gray; /* Color del promptText (opcional) */
     -fx-font-size: 16px; /* Tamaño de fuente para el promptText */
 }
+
+.bj-field {
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-font-size: 20px; /* Tamaño de fuente */
+    -fx-text-fill: white; /* Color del texto (blanco) */
+}
+

@@ -53,43 +53,48 @@ public class JuegoLocal {
     
     @FXML
     private void comenzarPartida() throws IOException {
-        vbox.setStyle("-fx-background-color: green;");
+    // Cambia el fondo de la pantalla
+    vbox.setStyle("-fx-background-image: url('images/Tapete3.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;");
 
-        // Ocultar el botón de comienzo y mostrar "Hit" y "Stand"
-        comienzo.setVisible(false);
-        hitButton.setVisible(true);
-        standButton.setVisible(true);
-        puntosJugador1.setVisible(true);
-        puntosCrupier.setVisible(true);
+    // Ocultar el botón de comienzo y mostrar los botones "Hit" y "Stand"
+    comienzo.setVisible(false);
+    hitButton.setVisible(true);
+    standButton.setVisible(true);
+    puntosJugador1.setVisible(true);
+    puntosCrupier.setVisible(true);
 
-        // Asignar cartas para el jugador y el crupier
-        Image playerCard1 = getRandomCardImage();
-        Image playerCard2 = getRandomCardImage();
-        Image dealerCard1 = getRandomCardImage();
+    // Asignar cartas para el jugador y el crupier
+    Image playerCard1 = getRandomCardImage();
+    Image playerCard2 = getRandomCardImage();
+    Image dealerCard1 = getRandomCardImage();
 
-        playerCardBox1.getChildren().add(createCardImageView(playerCard1));
-        playerCardBox1.getChildren().add(createCardImageView(playerCard2));
-        
-        dealerCardBox.getChildren().add(createCardImageView(dealerCard1));
-        
-        puntosJugador = getCardValue(playerCard1) + getCardValue(playerCard2);
-        puntosDealer = getCardValue(dealerCard1);
-        
-        puntosJugador1.setText("Puntos: " + puntosJugador);
-        puntosCrupier.setText("Puntos: " + puntosDealer);
-        
-        if(puntosJugador == 21){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Victoria");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Has alcanzado 21 puntos! Has ganado.");
-            alert.showAndWait();
-            App.setRoot("victoria");
+    playerCardBox1.getChildren().add(createCardImageView(playerCard1));
+    playerCardBox1.getChildren().add(createCardImageView(playerCard2));
+    dealerCardBox.getChildren().add(createCardImageView(dealerCard1));
 
-            hitButton.setVisible(false);
-            standButton.setVisible(false);
-        }
+    puntosJugador = getCardValue(playerCard1) + getCardValue(playerCard2);
+    puntosDealer = getCardValue(dealerCard1);
+
+    // Actualizar el texto de los labels y aplicar la clase de estilo "bj-field"
+    puntosJugador1.setText("Puntos: " + puntosJugador);
+    puntosJugador1.getStyleClass().add("bj-field");  // Aplica la clase de estilo "bj-field"
+    
+    puntosCrupier.setText("Puntos: " + puntosDealer);
+    puntosCrupier.getStyleClass().add("bj-field");  // Aplica la clase de estilo "bj-field"
+
+    if (puntosJugador == 21) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Victoria");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Has alcanzado 21 puntos! Has ganado.");
+        alert.showAndWait();
+        App.setRoot("victoria");
+
+        // Ocultar los botones "Hit" y "Stand" después de la victoria
+        hitButton.setVisible(false);
+        standButton.setVisible(false);
     }
+}
     
     @FXML
     private void hitAction() throws IOException {

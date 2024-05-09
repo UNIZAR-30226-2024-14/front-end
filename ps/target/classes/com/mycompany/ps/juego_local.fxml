@@ -18,7 +18,7 @@
                 <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="-100">
                     <!-- Aquí se mostrarán las cartas del crupier -->
                 </HBox>
-                <Label fx:id="puntosCrupier" text="Puntos: 0" visible="false" />
+                <Label fx:id="puntosCrupier" text="Puntos: 0" styleClass="bj-field" visible="false" />
             </VBox>
             
             <!-- Botón "Stand" a la derecha -->
@@ -31,7 +31,7 @@
             <HBox fx:id="playerCardBox1" alignment="CENTER" spacing="-100">
                 <!-- Aquí se mostrarán las cartas del jugador 1 -->
             </HBox>
-            <Label fx:id="puntosJugador1" text="Puntos: 0" visible="false" />
+            <Label fx:id="puntosJugador1" text="Puntos: 0" styleClass="bj-field" visible="false" />
         </VBox>
     </children>
     <padding>
