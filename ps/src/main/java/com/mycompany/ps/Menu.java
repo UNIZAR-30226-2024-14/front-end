@@ -9,7 +9,7 @@ public class Menu {
 
     @FXML
     private void switchToPrimary() throws IOException {
-        App.setRoot("juego");
+        App.setRoot("elegir_juego");
     }
 
     @FXML

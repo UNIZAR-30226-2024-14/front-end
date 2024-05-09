@@ -15,9 +15,12 @@
             <Button fx:id="hitButton" text="HIT" prefWidth="100" prefHeight="100" visible="false" onAction="#hitAction"/>
             
             <!-- HBox para el crupier -->
-            <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="-100">
-                <!-- Este espacio mostrará las cartas del dealer -->
-            </HBox>
+            <VBox alignment="CENTER" spacing="5">
+                    <HBox fx:id="dealerCardBox" alignment="CENTER" spacing="-100">
+                        <!-- Aquí se mostrarán las cartas del jugador 4 -->
+                    </HBox>
+                    <Label fx:id="puntosCrupier" text="Puntos: 0" visible="false" />
+            </VBox>
             
             <!-- Botón "Stand" a la derecha -->
             <Button fx:id="standButton" text="STAND" prefWidth="100" visible="false" prefHeight="100" onAction="#standAction"/>

@@ -48,6 +48,9 @@ public class Juego {
     private Label puntosJugador4; // Etiqueta para mostrar puntos del jugador 4
     
     @FXML
+    private Label puntosCrupier;
+    
+    @FXML
     private Button hitButton; // Botón "Hit"
     
     @FXML
@@ -82,12 +85,16 @@ public class Juego {
         puntosJugador2.setVisible(true);
         puntosJugador3.setVisible(true);
         puntosJugador4.setVisible(true);
+        puntosCrupier.setVisible(true);
 
         // Asignar dos cartas para cada jugador y calcular los puntos
         HBox[] playerCardBoxes = {playerCardBox1, playerCardBox2, playerCardBox3, playerCardBox4};
         Label[] puntosLabels = {puntosJugador1, puntosJugador2, puntosJugador3, puntosJugador4};
         
-        dealerCardBox.getChildren().add(createCardImageView(getRandomCardImage()));
+        Image cartaCrupier = getRandomCardImage();
+        dealerCardBox.getChildren().add(createCardImageView(cartaCrupier));
+        puntosDealer += getCardValue(cartaCrupier);
+        puntosCrupier.setText("Puntos: " + puntosDealer);
 
         for (int i = 0; i < playerCardBoxes.length; i++) {
             HBox playerCardBox = playerCardBoxes[i];
@@ -125,10 +132,6 @@ public class Juego {
             alert.setHeaderText(null);
             alert.setContentText("Te has pasado de 21 puntos. Has perdido.");
             alert.showAndWait();
-
-            // Ocultar botones después de perder
-            hitButton.setVisible(false);
-            standButton.setVisible(false);
         } else if (puntos[0] == 21) {
             // Mostrar mensaje de victoria
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -136,58 +139,53 @@ public class Juego {
             alert.setHeaderText(null);
             alert.setContentText("¡Has alcanzado 21 puntos! Has ganado.");
             alert.showAndWait();
-
-            // Ocultar botones después de ganar
-            hitButton.setVisible(false);
-            standButton.setVisible(false);
         }
     }
     
-@FXML
-    private void standAction() {
-        // Lógica para manejar el botón "Stand"
-        
-        // Sacar cartas para el crupier hasta llegar a un mínimo de 17 puntos
-        while (puntosDealer < 17) {
-            Image nuevaCarta = getRandomCardImage();
-            dealerCardBox.getChildren().add(createCardImageView(nuevaCarta));
-            puntosDealer += getCardValue(nuevaCarta);
-        }
-
-        // Determinar el resultado de la partida
-        Alert alert;
-        if (puntosDealer > 21) {
-            // Crupier se pasa de 21, jugador gana
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Victoria");
-            alert.setHeaderText(null);
-            alert.setContentText("¡El crupier se pasó de 21! Has ganado.");
-        } else if (puntosDealer == puntosJugador) {
-            // Empate entre crupier y jugador
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Empate");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Es un empate!");
-        } else if (puntosDealer > puntosJugador) {
-            // Crupier tiene más puntos que el jugador
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Derrota");
-            alert.setHeaderText(null);
-            alert.setContentText("El crupier tiene más puntos. Has perdido.");
-        } else {
-            // Crupier tiene menos puntos que el jugador
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Victoria");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Has ganado!");
-        }
-
-        alert.showAndWait();
-
-        // Ocultar botones después de la acción "Stand"
-        hitButton.setVisible(false);
-        standButton.setVisible(false);
+    @FXML
+private void standAction() {
+    // Lógica para manejar el botón "Stand"
+    
+    // Sacar cartas para el crupier hasta llegar a un mínimo de 17 puntos
+    while (puntosDealer < 17) {
+        Image nuevaCarta = getRandomCardImage();
+        dealerCardBox.getChildren().add(createCardImageView(nuevaCarta));
+        puntosDealer += getCardValue(nuevaCarta);
     }
+
+    // Actualizar la etiqueta de puntos del crupier
+    puntosCrupier.setText("Puntos: " + puntosDealer);
+
+    // Determinar el resultado de la partida
+    Alert alert;
+    if (puntosDealer > 21) {
+        // Crupier se pasa de 21, jugador gana
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Victoria");
+        alert.setHeaderText(null);
+        alert.setContentText("¡El crupier se pasó de 21! Has ganado.");
+    } else if (puntosDealer == puntosJugador) {
+        // Empate entre crupier y jugador
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Empate");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Es un empate!");
+    } else if (puntosDealer > puntosJugador) {
+        // Crupier tiene más puntos que el jugador
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Derrota");
+        alert.setHeaderText(null);
+        alert.setContentText("El crupier tiene más puntos. Has perdido.");
+    } else {
+        // Crupier tiene menos puntos que el jugador
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Victoria");
+        alert.setHeaderText(null);
+        alert.setContentText("¡Has ganado!");
+    }
+
+    alert.showAndWait();
+}
 
     @FXML
     private void exitApplication() {
