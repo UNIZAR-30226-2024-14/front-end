@@ -23,10 +23,10 @@
             </VBox>
             
             <!-- Botón "Stand" a la derecha -->
-            <Button fx:id="standButton" text="STAND" prefWidth="100" visible="false" prefHeight="100" onAction="#standAction"/>
+            <Button fx:id="standButton" text="STAND" prefWidth="100" visible="false" prefWidth="250" prefHeight="100" onAction="#standAction"/>
         </HBox>
         
-        <Button fx:id="comienzo" text="COMENZAR PARTIDA" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#comenzarPartida" />
+        <Button fx:id="comienzo" text="COMENZAR PARTIDA" styleClass="btn-primary2, btn-lg2" prefWidth="250" prefHeight="50" onAction="#comenzarPartida" />
         
         <!-- HBox para los jugadores con etiquetas para puntos -->
         <HBox alignment="CENTER" spacing="150">

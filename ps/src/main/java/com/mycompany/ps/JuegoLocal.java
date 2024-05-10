@@ -195,7 +195,7 @@ public class JuegoLocal {
         String[] suits = {"hearts", "clubs", "diamonds", "spades"};
         String suit = suits[random.nextInt(4)];
         String cardImageName = cardNumber + "_of_" + suit + ".jpg";
-        return new Image(getClass().getResource("/images/cards/" + cardImageName).toExternalForm());
+        return new Image(getClass().getResource("/images/cards2/" + cardImageName).toExternalForm());
     }
     
     private int getCardValue(Image cardImage) {
