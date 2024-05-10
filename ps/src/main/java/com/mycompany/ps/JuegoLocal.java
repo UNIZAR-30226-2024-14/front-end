@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.Random;
+import javafx.geometry.Insets;
 
 public class JuegoLocal {
     
@@ -56,6 +57,9 @@ public class JuegoLocal {
     // Cambia el fondo de la pantalla
     vbox.setStyle("-fx-background-image: url('images/Tapete3.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;");
 
+    Insets padding = new Insets(20.0, 20.0, 20.0, 20.0);
+    vbox.setPadding(padding);
+    
     // Ocultar el botón de comienzo y mostrar los botones "Hit" y "Stand"
     comienzo.setVisible(false);
     hitButton.setVisible(true);

@@ -16,5 +16,5 @@
         </image>
     </ImageView> -->
     <!-- Comentario de texto opcional -->
-    <Button text="EMPEZAR A JUGAR" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#switchToSecondary"/>
+    <Button text="EMPEZAR A JUGAR" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="60" onAction="#switchToSecondary"/>
 </VBox>
