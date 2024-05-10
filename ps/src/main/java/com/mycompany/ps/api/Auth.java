@@ -8,13 +8,15 @@ import com.google.gson.Gson;
 import com.mycompany.ps.api.http.HttpRequest;
 import com.mycompany.ps.api.http.HttpResponse;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  *
@@ -56,28 +58,59 @@ public class Auth {
   
   public static Map login(String username, String password) throws IOException {
     // Esto es el ejemplo de peticion que de la API
-//   curl -X 'POST' \
-//  'http://localhost:8000/users/token' \
-//  -H 'accept: application/json' \
-//  -H 'Content-Type: application/x-www-form-urlencoded' \
-//  -d 'grant_type=&username=test&password=test&scope=&client_id=&client_secret='
+    //   curl -X 'POST' \
+    //  'http://localhost:8000/users/token' \
+    //  -H 'accept: application/json' \
+    //  -H 'Content-Type: application/x-www-form-urlencoded' \
+    //  -d 'grant_type=&username=test&password=test&scope=&client_id=&client_secret='
 
-    // Se puede traducir a:
-    String endpoint = API_URL + "users/token";
-    String[] headers = {
-      "Accept: application/json",
-      "Content-Type: application/x-www-form-urlencoded"
-    };
-    String data = "grant_type=&username=" + username + "&password=" + password + "&scope=&client_id=&client_secret=";
+        // Se puede traducir a:
+        String endpoint = API_URL + "users/token";
+        String[] headers = {
+          "Accept: application/json",
+          "Content-Type: application/x-www-form-urlencoded"
+        };
+        String data = "grant_type=&username=" + username + "&password=" + password + "&scope=&client_id=&client_secret=";
 
-    HttpResponse response = HttpRequest.POST(endpoint, headers, data);
+        HttpResponse response = HttpRequest.POST(endpoint, headers, data);
 
-    // Pasar a Map
-    Gson gson = new Gson();
-    Map jsonMap = new HashMap<>();
-    jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
-    jsonMap.put("code", response.getCode());
+        // Pasar a Map
+        Gson gson = new Gson();
+        Map jsonMap = new HashMap<>();
+        jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
+        jsonMap.put("code", response.getCode());
 
-    return jsonMap;
+        return jsonMap;
     }
+  
+  public static int getMesaCount() throws IOException {
+    // Obtener el número de mesas desde el endpoint
+    String endpoint = API_URL + "bj/tables";
+    String[] headers = {
+      "Accept: application/json"
+    };
+
+    HttpResponse response = HttpRequest.GET(endpoint, headers);
+
+    if (response.getCode() == 200) {
+      // Analizar la respuesta para obtener el número de mesas
+      Gson gson = new Gson();
+      JsonElement jsonElement = JsonParser.parseString(response.getBody());
+
+      if (jsonElement.isJsonObject()) {
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        if (jsonObject.has("tables") && jsonObject.get("tables").isJsonArray()) {
+          List<?> tableList = gson.fromJson(jsonObject.get("tables"), List.class);
+          return tableList.size(); // Devuelve el número de mesas
+        } else {
+          throw new RuntimeException("El campo 'tables' no es un array.");
+        }
+      } else {
+        throw new RuntimeException("La respuesta no es un objeto JSON válido.");
+      }
+    } else {
+      throw new RuntimeException("Error al obtener datos, código de estado: " + response.getCode());
+    }
+  }
 }
