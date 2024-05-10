@@ -14,7 +14,7 @@ public class ElegirJuego {
 
     @FXML
     private void jugarOnline() throws IOException {
-        App.setRoot("juego");
+        App.setRoot("crear_unir");
     }
     
     @FXML

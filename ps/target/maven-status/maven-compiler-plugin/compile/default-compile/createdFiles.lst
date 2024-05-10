@@ -17,4 +17,5 @@ com\mycompany\ps\Registro.class
 com\mycompany\ps\Victoria.class
 com\mycompany\ps\api\http\HttpResponse.class
 com\mycompany\ps\JuegoLocal.class
+com\mycompany\ps\CrearUnir.class
 com\mycompany\ps\Derrota.class
