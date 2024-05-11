@@ -24,6 +24,7 @@ import com.google.gson.JsonParser;
  */
 public class Auth {
   private static final String API_URL = "http://64.225.78.184:8000/";
+  private static String tokenUsuario;
 
   public static Map register(String username, String email, String password) throws IOException {
     // Esto es el ejemplo de peticion que de la API
@@ -64,23 +65,68 @@ public class Auth {
     //  -H 'Content-Type: application/x-www-form-urlencoded' \
     //  -d 'grant_type=&username=test&password=test&scope=&client_id=&client_secret='
 
-        // Se puede traducir a:
-        String endpoint = API_URL + "users/token";
+    // Se puede traducir a:
+    String endpoint = API_URL + "users/token";
+    String[] headers = {
+      "Accept: application/json",
+      "Content-Type: application/x-www-form-urlencoded"
+    };
+    String data = "grant_type=&username=" + username + "&password=" + password + "&scope=&client_id=&client_secret=";
+
+    HttpResponse response = HttpRequest.POST(endpoint, headers, data);
+
+    // Pasar a Map
+    Gson gson = new Gson();
+    Map jsonMap = new HashMap<>();
+    jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
+    jsonMap.put("code", response.getCode());
+    tokenUsuario = jsonMap.get("access_token").toString();
+
+    return jsonMap;
+  }
+
+  
+  public static int crearMesa() throws IOException {
+    // Crear una nueva mesa
+    String endpoint = API_URL + "bj/create";
+    String[] headers = {
+      "accept: application/json"
+    };
+    String data = "";
+
+    HttpResponse response = HttpRequest.POST(endpoint, headers, data);
+
+    if (response.getCode() == 200) {
+      Gson gson = new Gson();
+      Map<String, Object> jsonResponse = gson.fromJson(response.getBody(), Map.class);
+      if (jsonResponse.containsKey("table_id")) {
+        double tableId = Double.parseDouble(jsonResponse.get("table_id").toString());
+        return (int) tableId; // Convertir el número decimal a entero
+      } else {
+        throw new RuntimeException("La respuesta no contiene la ID de la mesa.");
+      }
+    } else {
+      throw new RuntimeException("Error al crear la mesa, código de estado: " + response.getCode());
+    }
+  }
+
+
+    public static void joinMesa(int mesaId, String token) throws IOException {
+        // Unirse a una mesa específica
+        String endpoint = API_URL + "bj/join/" + mesaId;
         String[] headers = {
-          "Accept: application/json",
-          "Content-Type: application/x-www-form-urlencoded"
+          "accept: application/json",
+          "Authorization: Bearer " + token // Incluir el token de autenticación en el encabezado de autorización
         };
-        String data = "grant_type=&username=" + username + "&password=" + password + "&scope=&client_id=&client_secret=";
+        String data = ""; // No necesitas enviar datos en esta solicitud
 
         HttpResponse response = HttpRequest.POST(endpoint, headers, data);
 
-        // Pasar a Map
-        Gson gson = new Gson();
-        Map jsonMap = new HashMap<>();
-        jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
-        jsonMap.put("code", response.getCode());
-
-        return jsonMap;
+        if (response.getCode() == 200) {
+          System.out.println("Unido exitosamente a la mesa con ID: " + mesaId);
+        } else {
+          throw new RuntimeException("Error al unirse a la mesa, código de estado: " + response.getCode());
+        }
     }
   
   public static int getMesaCount() throws IOException {
@@ -112,5 +158,9 @@ public class Auth {
     } else {
       throw new RuntimeException("Error al obtener datos, código de estado: " + response.getCode());
     }
+  }
+  
+  public static String devolverToken(){
+      return tokenUsuario;
   }
 }

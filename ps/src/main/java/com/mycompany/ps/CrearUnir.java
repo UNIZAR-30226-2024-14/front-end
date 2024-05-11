@@ -13,6 +13,9 @@ public class CrearUnir {
 
     @FXML
     private void crearSala() throws IOException {
+        int id = Auth.crearMesa();
+        System.out.println(Auth.devolverToken());
+        Auth.joinMesa(id, Auth.devolverToken());
         App.setRoot("elegir_juego");
     }
 
