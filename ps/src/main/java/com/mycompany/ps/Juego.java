@@ -1,5 +1,6 @@
 package com.mycompany.ps;
 
+import com.mycompany.ps.api.Auth;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -74,6 +75,8 @@ public class Juego {
     
     @FXML
     private void comenzarPartida() {
+        
+       
         // Cambiar el fondo a verde para indicar el inicio de la partida
         vbox.setStyle("-fx-background-color: green;");
 
