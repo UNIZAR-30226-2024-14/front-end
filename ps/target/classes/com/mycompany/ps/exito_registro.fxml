@@ -11,7 +11,7 @@
     <Text text="¡TE HAS REGISTRADO CORRECTAMENTE!" styleClass="h1"/>
     <ImageView fitWidth="200" fitHeight="200">
       <image>
-         <Image url="@/images/exito.png" />
+         <Image url="@/images/Ok2.png" />
       </image>
    </ImageView>
         <Button fx:id="jugarBJ" text="CONTINUAR" styleClass="btn-primary, btn-lg" maxWidth="250" maxHeight="250" onAction="#irAMenu" />

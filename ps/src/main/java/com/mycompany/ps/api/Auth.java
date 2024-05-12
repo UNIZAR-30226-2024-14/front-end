@@ -109,6 +109,36 @@ public class Auth {
       throw new RuntimeException("Error al crear la mesa, código de estado: " + response.getCode());
     }
   }
+  
+  public static int buscarMesa() throws IOException {
+        String endpoint = API_URL + "bj/search";
+        String[] headers = {
+                "accept: application/json",
+                "Content-Type: application/json"
+        };
+        String data = "";
+
+        HttpResponse response = HttpRequest.POST(endpoint, headers, data);
+
+        if (response.getCode() == 200) {
+            Gson gson = new Gson();
+            JsonElement jsonElement = JsonParser.parseString(response.getBody());
+
+            if (jsonElement.isJsonObject()) {
+                JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+                if (jsonObject.has("table_id")) {
+                    return jsonObject.get("table_id").getAsInt();
+                } else {
+                    throw new RuntimeException("La respuesta no contiene la ID de la mesa.");
+                }
+            } else {
+                throw new RuntimeException("La respuesta no es un objeto JSON válido.");
+            }
+        } else {
+            throw new RuntimeException("Error al buscar la mesa, código de estado: " + response.getCode());
+        }
+    }
 
 
     public static void joinMesa(int mesaId, String token) throws IOException {
