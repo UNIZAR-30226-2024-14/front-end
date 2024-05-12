@@ -11,7 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import java.util.Random;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
+import javafx.util.Duration;
 
 public class JuegoLocal {
     
@@ -43,7 +45,28 @@ public class JuegoLocal {
     private int puntosJugador = 0; 
     
     private Random random = new Random();
+    
+    @FXML
+    private ImageView animationImageView;
 
+    @FXML
+    private void initialize() {
+        // Cargar la imagen de la animación
+        Image animationImage = new Image(getClass().getResourceAsStream("/images/start.gif"));
+        
+        // Establecer la imagen en el ImageView
+        animationImageView.setImage(animationImage);
+        
+        // Crear una transición de traducción para mover la imagen horizontalmente
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(5), animationImageView);
+        translateTransition.setFromX(0); // Posición inicial en x
+        translateTransition.setFromY(70); // Posición inicial en x
+        translateTransition.setToX(0); // Posición final en x
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE); // Repetir indefinidamente
+        translateTransition.setAutoReverse(true); // Revertir automáticamente
+        translateTransition.play(); // Iniciar la animación
+    }
+    
     private ImageView createCardImageView(Image cardImage) {
         ImageView imageView = new ImageView(cardImage);
         imageView.setFitWidth(120);
@@ -56,8 +79,16 @@ public class JuegoLocal {
     private void comenzarPartida() throws IOException {
     // Cambia el fondo de la pantalla
     vbox.setStyle("-fx-background-image: url('images/Tapete3.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;");
-
-    Insets padding = new Insets(20.0, 20.0, 20.0, 20.0);
+    animationImageView.setImage(null);
+    
+    Image lgImage = new Image(getClass().getResourceAsStream("/images/Lg2.png"));
+    animationImageView.setImage(lgImage);
+    animationImageView.setLayoutX(50); // Cambia el valor a la posición X deseada
+    animationImageView.setLayoutY(50); // Cambia el valor a la posición Y deseada
+    animationImageView.setFitWidth(950); // Cambia el valor al ancho deseado
+    animationImageView.setFitHeight(300); // Cambia el valor al alto deseado
+    
+    Insets padding = new Insets(-100.0, 20.0, 20.0, 20.0);
     vbox.setPadding(padding);
     
     // Ocultar el botón de comienzo y mostrar los botones "Hit" y "Stand"
@@ -137,7 +168,7 @@ public class JuegoLocal {
     }
 
 
-        @FXML
+    @FXML
     private void standAction() throws IOException {
         while (puntosDealer < 17) {
             Image nuevaCarta = getRandomCardImage();
@@ -178,12 +209,9 @@ public class JuegoLocal {
             App.setRoot("victoria");
         }
 
-        
-
         hitButton.setVisible(false);
         standButton.setVisible(false);
     }
-
 
     @FXML
     private void exitApplication() {
@@ -195,7 +223,7 @@ public class JuegoLocal {
         String[] suits = {"hearts", "clubs", "diamonds", "spades"};
         String suit = suits[random.nextInt(4)];
         String cardImageName = cardNumber + "_of_" + suit + ".jpg";
-        return new Image(getClass().getResource("/images/cards2/" + cardImageName).toExternalForm());
+        return new Image(getClass().getResource("/images/cards/" + cardImageName).toExternalForm());
     }
     
     private int getCardValue(Image cardImage) {

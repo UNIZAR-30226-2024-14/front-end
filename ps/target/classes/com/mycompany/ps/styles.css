@@ -50,3 +50,28 @@
     -fx-text-fill: white; /* Color del texto (blanco) */
 }
 
+/* Estilo para la clase btn-primary3 */
+.btn-primary3 {
+    -fx-background-color: #66E167; /* Fondo gris claro */
+    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra normal */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: #FFFFFF; /* Borde blanco */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
+
+/* Estilo para la clase btn-primary4 */
+.btn-primary4 {
+    -fx-background-color: #E16666; /* Fondo gris claro */
+    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra normal */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: #FFFFFF; /* Borde blanco */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
