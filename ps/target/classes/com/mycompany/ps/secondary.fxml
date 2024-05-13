@@ -7,7 +7,7 @@
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Menu" style="-fx-background-image: url('images/Jugar.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" stylesheets="@/com/mycompany/ps/styles.css">
     <children>
         <Button fx:id="jugar" text="JUGAR" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
-        <Button fx:id="perfil" text="PERFIL" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" />
+        <Button fx:id="perfil" text="PERFIL" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#irPerfil" />
         <Button fx:id="salir" text="SALIR" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#exitApplication" />
     </children>
     <padding>

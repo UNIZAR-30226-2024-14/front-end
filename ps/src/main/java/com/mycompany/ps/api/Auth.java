@@ -239,4 +239,49 @@ public class Auth {
     public static String devolverToken() {
         return tokenUsuario;
     }
+    
+    // Función para obtener el nombre del usuario
+    public static String obtenerNombreUsuario() throws IOException {
+        String endpoint = API_URL + "users/";
+        String[] headers = {
+            "accept: application/json"
+        };
+
+        HttpResponse response = HttpRequest.GET(endpoint, headers);
+
+        if (response.getCode() == 200) {
+            // Analizar la respuesta para obtener el nombre de usuario
+            Gson gson = new Gson();
+            JsonObject jsonResponse = gson.fromJson(response.getBody(), JsonObject.class);
+            JsonArray usersArray = jsonResponse.getAsJsonArray("users");
+
+            // Suponiendo que solo estamos interesados en el primer usuario de la lista
+            JsonObject primerUsuario = usersArray.get(0).getAsJsonObject();
+            return primerUsuario.get("username").getAsString();
+        } else {
+            throw new RuntimeException("Error al obtener datos, código de estado: " + response.getCode());
+        }
+    }
+
+    public static String obtenerCorreoUsuario() throws IOException {
+        String endpoint = API_URL + "users/";
+        String[] headers = {
+            "accept: application/json"
+        };
+
+        HttpResponse response = HttpRequest.GET(endpoint, headers);
+
+        if (response.getCode() == 200) {
+            // Analizar la respuesta para obtener el correo electrónico del usuario
+            Gson gson = new Gson();
+            JsonObject jsonResponse = gson.fromJson(response.getBody(), JsonObject.class);
+            JsonArray usersArray = jsonResponse.getAsJsonArray("users");
+
+            // Suponiendo que solo estamos interesados en el primer usuario de la lista
+            JsonObject primerUsuario = usersArray.get(0).getAsJsonObject();
+            return primerUsuario.get("email").getAsString();
+        } else {
+            throw new RuntimeException("Error al obtener datos, código de estado: " + response.getCode());
+        }
+    }
 }

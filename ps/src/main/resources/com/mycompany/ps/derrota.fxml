@@ -3,14 +3,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Derrota"
      style="-fx-background-image: url('images/D.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;"
      stylesheets="@/com/mycompany/ps/styles.css">
+    <ImageView fx:id="animationImageView" fitWidth="200" fitHeight="200" layoutY="800" />
     <children>
         <Button fx:id="jugar" text="VOLVER" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#switchToPrimary" />
     </children>
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="100.0" />
+        <Insets bottom="20.0" left="20.0" right="20.0" top="-50.0" />
     </padding>
 </VBox>

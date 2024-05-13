@@ -11,6 +11,11 @@ public class Menu {
     private void switchToPrimary() throws IOException {
         App.setRoot("elegir_juego");
     }
+    
+    @FXML
+    private void irPerfil() throws IOException {
+        App.setRoot("perfil");
+    }
 
     @FXML
     private void exitApplication() {
