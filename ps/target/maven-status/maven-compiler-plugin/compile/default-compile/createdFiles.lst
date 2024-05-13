@@ -8,6 +8,7 @@ com\mycompany\ps\ElegirJuego.class
 com\mycompany\ps\api\Auth.class
 module-info.class
 com\mycompany\ps\Juego.class
+com\mycompany\ps\Perfil.class
 com\mycompany\ps\IniciarSesion.class
 com\mycompany\ps\Fallo_registro.class
 com\mycompany\ps\ISoR.class

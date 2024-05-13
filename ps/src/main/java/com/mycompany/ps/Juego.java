@@ -13,6 +13,7 @@ import java.util.Random;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import org.java_websocket.client.WebSocketClient;
 
 public class Juego {
@@ -26,6 +27,9 @@ public class Juego {
 
     @FXML
     private Button comienzo; // Referencia al botón
+    
+    @FXML
+    private Button enviar;
 
     @FXML
     private HBox dealerCardBox; // Donde se mostrarán las cartas del crupier
@@ -80,9 +84,12 @@ public class Juego {
 
     @FXML
     private Label chatMessage2;
+    
+    @FXML
+    private TextField chatInput;
 
     // Método para mostrar un nuevo mensaje del chat
-    private void mostrarMensajeChat(String mensaje) {
+    void mostrarMensajeChat(String mensaje) {
         // Encuentra la primera etiqueta de mensaje de chat vacía y establece el mensaje
         if (chatMessage1.getText().isEmpty()) {
             chatMessage1.setText(mensaje);
@@ -92,6 +99,25 @@ public class Juego {
             // Si ambas etiquetas están ocupadas, mueve el mensaje anterior hacia arriba y muestra el nuevo mensaje
             chatMessage1.setText(chatMessage2.getText());
             chatMessage2.setText(mensaje);
+        }
+    }
+    
+    @FXML
+    private void enviarMensaje() {
+        // Obtener el mensaje del campo de texto
+        String mensaje = chatInput.getText();
+
+        // Verificar que el mensaje no esté vacío antes de enviarlo
+        if (!mensaje.isEmpty()) {
+            // Enviar el mensaje al servidor de chat a través del WebSocket
+            if (client != null && client.isOpen()) {
+                String msg = "{\"message\": \"" + mensaje + "\"}";
+                client.send(msg);
+                //Platform.runLater(() -> mostrarMensajeChat(mensaje));
+
+                // Limpiar el campo de texto después de enviar el mensaje
+                chatInput.clear();
+            }
         }
     }
 
@@ -116,7 +142,7 @@ public class Juego {
         // Crear un hilo para manejar la funcionalidad del chat simultáneamente
         Thread chatThread = new Thread(() -> {
             try {
-                client = new ChatClient(String.valueOf(id), token, ws_uri + chat_uri);
+                client = new ChatClient(String.valueOf(id), token, ws_uri + chat_uri, this);
                 client.connect();
 
                 System.out.println("Connecting to websocket server...");
@@ -133,29 +159,19 @@ public class Juego {
                     System.exit(1);
                 }
 
-                Scanner scanner = new Scanner(System.in);
                 System.out.println("Connected to chat server.");
-                System.out.print("Enter your message: ");
-                while (client.isOpen()) {
-                    String message = scanner.nextLine();
-                    if (message.equals("exit")) {
-                        break;
-                    }
-                    String msg = "{\"message\": \"" + message + "\"}";
-                    client.send(msg);
-                    Platform.runLater(() -> mostrarMensajeChat(message));
-                }
 
-                scanner.close();
-                client.close();
+                // No necesitas leer desde la consola, simplemente enviar mensajes utilizando el método enviarMensaje()
+
             } catch (Exception e) {
                 e.printStackTrace(); // Manejo de la excepción
             }
         });
         chatThread.start();
 
+
         // Cambiar el fondo a verde para indicar el inicio de la partida
-        vbox.setStyle("-fx-background-color: green;");
+        vbox.setStyle("-fx-background-image: url('images/Tapete3.png');");
 
         // Ocultar el botón de comienzo
         comienzo.setVisible(false);
@@ -166,6 +182,10 @@ public class Juego {
         puntosJugador3.setVisible(true);
         puntosJugador4.setVisible(true);
         puntosCrupier.setVisible(true);
+        chatMessage1.setVisible(true);
+        chatMessage2.setVisible(true);
+        chatInput.setVisible(true);
+        enviar.setVisible(true);
 
         // Asignar dos cartas para cada jugador y calcular los puntos
         HBox[] playerCardBoxes = {playerCardBox1, playerCardBox2, playerCardBox3, playerCardBox4};
