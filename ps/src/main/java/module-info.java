@@ -5,6 +5,7 @@ module com.mycompany.ps {
 
     opens com.mycompany.ps to javafx.fxml;
     exports com.mycompany.ps;
+    requires org.java_websocket;
     requires org.kordamp.bootstrapfx.core;
     requires com.google.gson;
 }

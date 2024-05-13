@@ -15,9 +15,11 @@ public class CrearUnir {
     private void crearSala() throws IOException {
         int id = Auth.crearMesa();
         Auth.joinMesa(id, Auth.devolverToken());
-        while(!Auth.mesaEstaLlena(id, Auth.devolverToken())){
-            System.out.println("espero");
-        }
+//        while(!Auth.mesaEstaLlena(id, Auth.devolverToken())){
+//            System.out.println("espero");
+//        }
+        // Configurar los valores del ID y del token en la clase Juego
+        Juego.configurarJuego(id, Auth.devolverToken());
         App.setRoot("juego");
     }
 
@@ -32,11 +34,12 @@ public class CrearUnir {
             if(Auth.mesaEstaLlena(id, Auth.devolverToken())){
                 System.out.println("esta llena");
             }
-            while(!Auth.mesaEstaLlena(id, Auth.devolverToken())){
-                System.out.println("espero");
-            }
+//            while(!Auth.mesaEstaLlena(id, Auth.devolverToken())){
+//                System.out.println("espero");
+//            }
+            // Configurar los valores del ID y del token en la clase Juego
+            Juego.configurarJuego(id, Auth.devolverToken());
             App.setRoot("juego");
         }
-
     }
 }
