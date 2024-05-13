@@ -48,6 +48,8 @@ public class JuegoLocal {
     
     @FXML
     private ImageView animationImageView;
+    
+    private static String skin = "cards";
 
     @FXML
     private void initialize() {
@@ -65,6 +67,10 @@ public class JuegoLocal {
         translateTransition.setCycleCount(TranslateTransition.INDEFINITE); // Repetir indefinidamente
         translateTransition.setAutoReverse(true); // Revertir automáticamente
         translateTransition.play(); // Iniciar la animación
+    }
+    
+    static void cambiarSkin(String carpeta){
+        skin = carpeta;
     }
     
     private ImageView createCardImageView(Image cardImage) {
@@ -223,7 +229,7 @@ public class JuegoLocal {
         String[] suits = {"hearts", "clubs", "diamonds", "spades"};
         String suit = suits[random.nextInt(4)];
         String cardImageName = cardNumber + "_of_" + suit + ".jpg";
-        return new Image(getClass().getResource("/images/cards/" + cardImageName).toExternalForm());
+        return new Image(getClass().getResource("/images/" + skin + "/" + cardImageName).toExternalForm());
     }
     
     private int getCardValue(Image cardImage) {

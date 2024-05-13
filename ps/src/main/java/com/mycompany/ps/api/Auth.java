@@ -27,6 +27,8 @@ public class Auth {
 
     private static final String API_URL = "http://64.225.78.184:8000/";
     private static String tokenUsuario;
+    private static String nombre;
+    private static String correo;
 
     public static Map register(String username, String email, String password) throws IOException {
         // Esto es el ejemplo de peticion que de la API
@@ -82,6 +84,7 @@ public class Auth {
         Map jsonMap = new HashMap<>();
         jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
         jsonMap.put("code", response.getCode());
+        nombre = username;
         tokenUsuario = jsonMap.get("access_token").toString();
 
         return jsonMap;
@@ -240,30 +243,11 @@ public class Auth {
         return tokenUsuario;
     }
     
-    // Función para obtener el nombre del usuario
-    public static String obtenerNombreUsuario() throws IOException {
-        String endpoint = API_URL + "users/";
-        String[] headers = {
-            "accept: application/json"
-        };
-
-        HttpResponse response = HttpRequest.GET(endpoint, headers);
-
-        if (response.getCode() == 200) {
-            // Analizar la respuesta para obtener el nombre de usuario
-            Gson gson = new Gson();
-            JsonObject jsonResponse = gson.fromJson(response.getBody(), JsonObject.class);
-            JsonArray usersArray = jsonResponse.getAsJsonArray("users");
-
-            // Suponiendo que solo estamos interesados en el primer usuario de la lista
-            JsonObject primerUsuario = usersArray.get(0).getAsJsonObject();
-            return primerUsuario.get("username").getAsString();
-        } else {
-            throw new RuntimeException("Error al obtener datos, código de estado: " + response.getCode());
-        }
+    public static String devolverNombre() {
+        return nombre;
     }
-
-    public static String obtenerCorreoUsuario() throws IOException {
+    
+    public static String obtenerCorreoUsuario(String nombreUsuario) throws IOException {
         String endpoint = API_URL + "users/";
         String[] headers = {
             "accept: application/json"
@@ -277,9 +261,16 @@ public class Auth {
             JsonObject jsonResponse = gson.fromJson(response.getBody(), JsonObject.class);
             JsonArray usersArray = jsonResponse.getAsJsonArray("users");
 
-            // Suponiendo que solo estamos interesados en el primer usuario de la lista
-            JsonObject primerUsuario = usersArray.get(0).getAsJsonObject();
-            return primerUsuario.get("email").getAsString();
+            // Buscar el usuario por su nombre en la lista de usuarios
+            for (int i = 0; i < usersArray.size(); i++) {
+                JsonObject usuario = usersArray.get(i).getAsJsonObject();
+                if (usuario.get("username").getAsString().equals(nombreUsuario)) {
+                    return usuario.get("email").getAsString();
+                }
+            }
+
+            // Si no se encontró el usuario, lanzar una excepción
+            throw new RuntimeException("El usuario '" + nombreUsuario + "' no fue encontrado.");
         } else {
             throw new RuntimeException("Error al obtener datos, código de estado: " + response.getCode());
         }

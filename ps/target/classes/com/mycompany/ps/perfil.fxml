@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 
 <VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.mycompany.ps.Perfil">
@@ -9,4 +10,7 @@
     <Label fx:id="usernameLabel" />
     <Label text="Correo electrónico:" />
     <Label fx:id="emailLabel" />
+    <Button fx:id="jugarBJ" text="CARTAS BLANCAS" styleClass="btn-primary2, btn-lg2" maxWidth="400" maxHeight="600" onAction="#cambiar1" />
+    <Button fx:id="jugarBJ" text="CARTAS NEGRAS" styleClass="btn-primary2, btn-lg2" maxWidth="400" maxHeight="600" onAction="#cambiar2" />
+    <Button fx:id="jugarBJ" text="volver" styleClass="btn-primary2, btn-lg2" maxWidth="400" maxHeight="600" onAction="#volver" />
 </VBox>
