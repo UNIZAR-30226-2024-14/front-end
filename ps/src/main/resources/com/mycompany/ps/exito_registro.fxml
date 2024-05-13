@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Exito_registro" style="-fx-background-image: url('images/Con.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" stylesheets="@/com/mycompany/ps/styles.css">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.Exito_registro" style="-fx-background-image: url('images/_Con.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" stylesheets="@/com/mycompany/ps/styles.css">
     <!--<stylesheets>
         <String fx:value="/com/my/company/ps/styles.css" />
     </stylesheets>-->
