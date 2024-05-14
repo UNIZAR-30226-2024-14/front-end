@@ -46,11 +46,11 @@ public class JuegoLocal {
     
     private Random random = new Random();
     
+    private static String skin = "cards";
+
     @FXML
     private ImageView animationImageView;
     
-    private static String skin = "cards";
-
     @FXML
     private void initialize() {
         // Cargar la imagen de la animación

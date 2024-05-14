@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.image.ImageView?>
 
-
 <VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ps.JuegoLocal" fx:id="vbox" style="-fx-background-image: url('images/Cp4.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" stylesheets="@/com/mycompany/ps/styles.css">
     <!-- Agrega el ImageView dentro del VBox -->
     <ImageView fx:id="animationImageView" fitWidth="200" fitHeight="200" layoutY="200" />
@@ -31,7 +30,7 @@
         </HBox>
 
         
-        <Button fx:id="comienzo" text="START" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#comenzarPartida" />
+        <Button fx:id="comienzo" text="START" styleClass="btn-primary2, btn-lg2" prefWidth="250" prefHeight="50" onAction="#comenzarPartida" />
         
         <VBox alignment="CENTER" spacing="5">
             <HBox fx:id="playerCardBox1" alignment="CENTER" spacing="-100">

@@ -26,6 +26,9 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.animation.TranslateTransition;
+import javafx.geometry.Insets;
+import javafx.util.Duration;
 
 public class Juego {
 
@@ -102,6 +105,27 @@ public class Juego {
 
     @FXML
     private TextField chatInput;
+    
+    @FXML
+    private ImageView animationImageView;
+    
+    @FXML
+    private void initialize() {
+        // Cargar la imagen de la animación
+        Image animationImage = new Image(getClass().getResourceAsStream("/images/start.gif"));
+        
+        // Establecer la imagen en el ImageView
+        animationImageView.setImage(animationImage);
+        
+        // Crear una transición de traducción para mover la imagen horizontalmente
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(5), animationImageView);
+        translateTransition.setFromX(0); // Posición inicial en x
+        translateTransition.setFromY(250); // Posición inicial en x
+        translateTransition.setToX(0); // Posición final en x
+        translateTransition.setCycleCount(TranslateTransition.INDEFINITE); // Repetir indefinidamente
+        translateTransition.setAutoReverse(true); // Revertir automáticamente
+        translateTransition.play(); // Iniciar la animación
+    }
 
     // Método para mostrar un nuevo mensaje del chat
     void mostrarMensajeChat(String mensaje) {
@@ -158,7 +182,18 @@ public class Juego {
 
     @FXML
     private void comenzarPartida() {
+        animationImageView.setImage(null);
+        
+        Image lgImage = new Image(getClass().getResourceAsStream("/images/Lg2.png"));
+        animationImageView.setImage(lgImage);
+        animationImageView.setLayoutX(50); // Cambia el valor a la posición X deseada
+        animationImageView.setLayoutY(0); // Cambia el valor a la posición Y deseada
+        animationImageView.setFitWidth(950); // Cambia el valor al ancho deseado
+        animationImageView.setFitHeight(300); // Cambia el valor al alto deseado
 
+        Insets padding = new Insets(-550.0, 20.0, 20.0, 20.0);
+        vbox.setPadding(padding);
+        
         // Crear un hilo para manejar la funcionalidad del chat simultáneamente
         Thread chatThread = new Thread(() -> {
             try {
