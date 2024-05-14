@@ -1,37 +1,48 @@
 /* Estilo para la clase btn-primary2 */
 .btn-primary2 {
     -fx-background-color: #D3D3D3; /* Fondo gris claro */
-    -fx-text-fill: #000000; /* Letra de color blanco */
+    -fx-text-fill: #000000; /* Letra de color negro */
     -fx-font-weight: normal; /* Letra normal */
-    -fx-font-size: 20px; /* Tamaño de la letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: #858585; /* Borde blanco */
+    -fx-border-color: #858585; /* Borde gris oscuro */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
+
+/* Estilo para la clase btn-primary2 cuando está presionado */
+.btn-primary2:pressed {
+    -fx-background-color: #A9A9A9; /* Cambia el color de fondo cuando el botón está presionado */
+}
+
+/* Estilo para la clase btn-primary2 cuando está seleccionado */
+.btn-primary2:selected {
+    -fx-background-color: #57E858; /* Cambia el color de fondo cuando el botón está seleccionado */
+}
+
 
 /* Estilo para la clase btn-lg2 */
 .btn-lg2 {
     -fx-background-color: #D3D3D3; /* Fondo gris claro */
-    -fx-text-fill: #000000; /* Letra de color blanco */
-    -fx-font-size: 16px; /* Tamaño de la fuente normal */
+    -fx-text-fill: #000000; /* Letra de color negro */
+    -fx-font-size: 16px; /* Tamaño de la letra */
     -fx-font-weight: normal; /* Letra normal */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: #858585; /* Borde blanco */
+    -fx-border-color: #858585; /* Borde gris oscuro */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
 
-/* Estilo para la clase btn-lg2 */
+/* Estilo para la clase btn-lg3 */
 .btn-lg3 {
     -fx-background-color: #D3D3D3; /* Fondo gris claro */
-    -fx-text-fill: #000000; /* Letra de color blanco */
-    -fx-font-size: 24px; /* Tamaño de la fuente normal */
+    -fx-text-fill: #000000; /* Letra de color negro */
+    -fx-font-size: 24px; /* Tamaño de la letra */
     -fx-font-weight: normal; /* Letra normal */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: #858585; /* Borde blanco */
+    -fx-border-color: #858585; /* Borde gris oscuro */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
@@ -50,28 +61,127 @@
     -fx-text-fill: white; /* Color del texto (blanco) */
 }
 
-/* Estilo para la clase btn-primary3 */
+/* Estilo para la clase btn-primary2 */
 .btn-primary3 {
-    -fx-background-color: #66E167; /* Fondo gris claro */
-    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-background-color: #FFFFFF; /* Fondo gris claro */
+    -fx-text-fill: #000000; /* Letra de color negro */
     -fx-font-weight: normal; /* Letra normal */
-    -fx-font-size: 20px; /* Tamaño de la letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: #FFFFFF; /* Borde blanco */
+    -fx-border-color: #858585; /* Borde gris oscuro */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
 }
 
-/* Estilo para la clase btn-primary4 */
+/* Estilo para la clase btn-primary2 cuando está seleccionado */
+.btn-primary3:selected {
+    -fx-background-color: #9BE99C; /* Cambia el color de fondo cuando el botón está seleccionado */
+}
+
+/* Estilo para la clase btn-primary2 cuando está presionado */
+.btn-primary3:armed {
+    -fx-background-color: #9BE99C; /* Cambia el color de fondo cuando el botón está presionado */
+}
+
+/* Estilo para la clase btn-primary2 */
 .btn-primary4 {
-    -fx-background-color: #E16666; /* Fondo gris claro */
-    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-background-color: #666666; /* Fondo gris claro */
+    -fx-text-fill: #FFFFFF; /* Letra de color negro */
     -fx-font-weight: normal; /* Letra normal */
-    -fx-font-size: 20px; /* Tamaño de la letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra */
     -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
-    -fx-border-color: #FFFFFF; /* Borde blanco */
+    -fx-border-color: #858585; /* Borde gris oscuro */
     -fx-border-width: 2px; /* Ancho del borde */
     -fx-border-radius: 10px; /* Esquinas redondeadas */
     -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
+
+/* Estilo para la clase btn-primary2 cuando está seleccionado */
+.btn-primary4:selected {
+    -fx-background-color: #9BE99C; /* Cambia el color de fondo cuando el botón está seleccionado */
+}
+
+/* Estilo para la clase btn-primary2 cuando está presionado */
+.btn-primary4:armed {
+    -fx-background-color: #9BE99C; /* Cambia el color de fondo cuando el botón está presionado */
+}
+
+/* Estilo para la clase btn-primary2 */
+.btn-primary5 {
+    -fx-background-color: #CD947D; /* Fondo rojo */
+    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: #858585; /* Borde gris oscuro */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
+
+/* Estilo para la clase btn-primary2 cuando está seleccionado */
+.btn-primary5:selected {
+    -fx-background-color: #9BE99C; /* Cambia el color de fondo cuando el botón está seleccionado */
+}
+
+/* Estilo para la clase btn-primary2 cuando está presionado */
+.btn-primary5:armed {
+    -fx-background-color: #9BE99C; /* Cambia el color de fondo cuando el botón está presionado */
+}
+
+/* Estilo para la clase btn-primary2 */
+.btn-primary6 {
+    -fx-background-color: #76AA74; /* Fondo rojo */
+    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: #6E9369; /* Borde gris oscuro */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
+
+/* Estilo para la clase btn-primary2 cuando está seleccionado */
+.btn-primary6:selected {
+    -fx-background-color: #587C56; /* Cambia el color de fondo cuando el botón está seleccionado */
+}
+
+/* Estilo para la clase btn-primary2 cuando está presionado */
+.btn-primary6:armed {
+    -fx-background-color: #587C56; /* Cambia el color de fondo cuando el botón está presionado */
+}
+
+/* Estilo para la clase btn-primary2 */
+.btn-primary7 {
+    -fx-background-color: #AA8876; /* Fondo rojo */
+    -fx-text-fill: #FFFFFF; /* Letra de color blanco */
+    -fx-font-weight: normal; /* Letra normal */
+    -fx-font-size: 20px; /* Tamaño de la letra */
+    -fx-font-family: 'Times New Roman'; /* Tipo de fuente */
+    -fx-border-color: #937769; /* Borde gris oscuro */
+    -fx-border-width: 2px; /* Ancho del borde */
+    -fx-border-radius: 10px; /* Esquinas redondeadas */
+    -fx-background-radius: 10px; /* Esquinas redondeadas del fondo */
+}
+
+/* Estilo para la clase btn-primary2 cuando está seleccionado */
+.btn-primary7:selected {
+    -fx-background-color: #7C6356; /* Cambia el color de fondo cuando el botón está seleccionado */
+}
+
+/* Estilo para la clase btn-primary2 cuando está presionado */
+.btn-primary7:armed {
+    -fx-background-color: #7C6356; /* Cambia el color de fondo cuando el botón está presionado */
+}
+
+/* styles.css */
+.hh3 {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.hh4 {
+    -fx-font-size: 20px;
 }
