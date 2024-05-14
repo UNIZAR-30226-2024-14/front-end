@@ -1,5 +1,11 @@
 package com.mycompany.ps;
 
+import static com.mycompany.ps.BlackjackClient.Action.BET;
+import static com.mycompany.ps.BlackjackClient.Action.DRAW;
+import static com.mycompany.ps.BlackjackClient.Action.END;
+import static com.mycompany.ps.BlackjackClient.Action.INFO;
+import static com.mycompany.ps.BlackjackClient.Action.NONE;
+import static com.mycompany.ps.BlackjackClient.Action.TURN;
 import com.mycompany.ps.api.Auth;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -16,19 +22,24 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import org.java_websocket.client.WebSocketClient;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Juego {
 
     private static final String ws_uri = "ws://64.225.78.184:8000";
     private static final String blackjack_uri = "/ws/blackjack/";
     private static final String chat_uri = "/ws/chat/";
+    private static String nombre;
 
     @FXML
     private VBox vbox; // Referencia al VBox
 
     @FXML
     private Button comienzo; // Referencia al botón
-    
+
     @FXML
     private Button enviar;
 
@@ -68,6 +79,8 @@ public class Juego {
     @FXML
     private Button standButton; // Botón "Stand"
 
+    private static String skin = "cards";
+
     private int puntosDealer = 0; // Para almacenar los puntos del crupier
     private int puntosJugador = 0; // Puedes obtenerlo del jugador activo (por ejemplo, jugador 1)
 
@@ -80,13 +93,13 @@ public class Juego {
 
     WebSocketClient client;
     WebSocketClient clientB;
-    
+
     @FXML
     private Label chatMessage1;
 
     @FXML
     private Label chatMessage2;
-    
+
     @FXML
     private TextField chatInput;
 
@@ -103,7 +116,11 @@ public class Juego {
             chatMessage2.setText(mensaje);
         }
     }
-    
+
+    static void cambiarSkin(String carpeta) {
+        skin = carpeta;
+    }
+
     @FXML
     private void enviarMensaje() {
         // Obtener el mensaje del campo de texto
@@ -124,9 +141,10 @@ public class Juego {
     }
 
     // Método estático para configurar el ID y el token
-    public static void configurarJuego(int id, String token) {
+    public static void configurarJuego(int id, String token, String nombre) {
         Juego.id = id;
         Juego.token = token;
+        Juego.nombre = nombre;
     }
 
     private ImageView createCardImageView(Image cardImage) {
@@ -140,8 +158,6 @@ public class Juego {
 
     @FXML
     private void comenzarPartida() {
-        
-        Scanner scanner = new Scanner(System.in);
 
         // Crear un hilo para manejar la funcionalidad del chat simultáneamente
         Thread chatThread = new Thread(() -> {
@@ -166,86 +182,30 @@ public class Juego {
                 System.out.println("Connected to chat server.");
 
                 // No necesitas leer desde la consola, simplemente enviar mensajes utilizando el método enviarMensaje()
-
             } catch (Exception e) {
                 e.printStackTrace(); // Manejo de la excepción
             }
         });
         chatThread.start();
-        
-        Thread blackjackThread = new Thread(() -> {
-            try{
-                clientB = new BlackjackClient(String.valueOf(id), token, ws_uri + blackjack_uri);
-                clientB.connect();
 
-                System.out.println("Connecting to websocket server...");
-                while (!clientB.isOpen() && !clientB.isClosed()) {
-                  Thread.sleep(100);
-                }
+        iniciarJuego();
 
-                if (clientB.isClosed()) {
-                  System.out.println("Connection failed.");
-                  System.exit(1);
-                }
-                
-                System.out.println("Connected to BJ server.");
-                
-                while (clientB.isOpen()) {
-                    
-                    System.out.println("Entroooo");
-                    BlackjackClient.Pair pair = ((BlackjackClient)clientB).parseMessage();
-                    BlackjackClient.Action action = pair.action;
-                    var message = pair.map;
+//        Thread esperaMesaLlenaThread = new Thread(() -> {
+//            try {
+//                while(!Auth.mesaEstaLlena(id, token)){
+//                    JOptionPane.showMessageDialog(null, "La mesa aún no está llena. Esperando...");
+//                    Thread.sleep(1000); // Esperar un segundo antes de volver a verificar
+//                }
+//                iniciarJuego();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        esperaMesaLlenaThread.start();
+    }
 
-                    // Pretty print
-                    if (message != null && !message.isEmpty()) {
-                      System.out.println("Game state:");
-                      for (Map.Entry<?, ?> entry : message.entrySet()) {
-                        System.out.println("\t"+ entry.getKey() + ": " + entry.getValue());
-                      }
-                    }
-
-                    switch (action) {
-//                      case BET:
-//                        System.out.print("Enter bet amount: ");
-//                        String bet = scanner.nextLine();
-//                        if (bet.equals("pause")) {
-//                          client.send("{\"action\": \"pause\"}");
-//                          break;
-//                        }
-//                        client.send("{\"action\": \"bet\", \"value\": \""+ bet + "\"}");
-//                        break;
-                      case TURN:
-            //            System.out.println(message);
-                        System.out.print("Enter action (hit/stand): ");
-                        String turn = scanner.nextLine();
-                        if (turn.equals("pause")) {
-                          client.send("{\"action\": \"pause\"}");
-                          break;
-                        }
-                        client.send("{\"action\": \""+ turn + "\"}");
-                        break;
-                      case DRAW:
-                        System.out.println("Drawing card...");
-                        System.out.println(message);
-                        break;
-                      case END:
-                        System.out.println("Game ended.");
-                        System.out.println(message);
-                        break;
-                      case INFO:
-                        System.out.println(message);
-                        break;
-                      case NONE:
-                      default: break;
-                    }
-                  }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        blackjackThread.start();
-        
+    private void iniciarJuego() {
+        Scanner scanner = new Scanner(System.in);
         // Cambiar el fondo a verde para indicar el inicio de la partida
         vbox.setStyle("-fx-background-image: url('images/Tapete3.png');");
 
@@ -258,114 +218,137 @@ public class Juego {
         puntosJugador3.setVisible(true);
         puntosJugador4.setVisible(true);
         puntosCrupier.setVisible(true);
-        chatMessage1.setVisible(true);
-        chatMessage2.setVisible(true);
-        chatInput.setVisible(true);
-        enviar.setVisible(true);
 
-        // Asignar dos cartas para cada jugador y calcular los puntos
-        HBox[] playerCardBoxes = {playerCardBox1, playerCardBox2, playerCardBox3, playerCardBox4};
-        Label[] puntosLabels = {puntosJugador1, puntosJugador2, puntosJugador3, puntosJugador4};
+        Thread bjThread = new Thread(() 
+            -> {
+            try {
 
-        Image cartaCrupier = getRandomCardImage();
-        dealerCardBox.getChildren().add(createCardImageView(cartaCrupier));
-        puntosDealer += getCardValue(cartaCrupier);
-        puntosCrupier.setText("Puntos: " + puntosDealer);
+                clientB = new BlackjackClient(String.valueOf(id), token, nombre, ws_uri + blackjack_uri);
+                clientB.connect();
 
-        for (int i = 0; i < playerCardBoxes.length; i++) {
-            HBox playerCardBox = playerCardBoxes[i];
-            Label puntosLabel = puntosLabels[i];
+                System.out.println("Connecting to websocket server...");
+                while (!clientB.isOpen() && !clientB.isClosed()) {
+                    Thread.sleep(100);
+                }
 
-            Image playerCard1 = getRandomCardImage();
-            Image playerCard2 = getRandomCardImage();
+                if (clientB.isClosed()) {
+                    System.out.println("Connection failed.");
+                    System.exit(1);
+                }
 
-            playerCardBox.getChildren().add(createCardImageView(playerCard1));
-            playerCardBox.getChildren().add(createCardImageView(playerCard2));
+                System.out.println("Connected to BJ server.");
 
-            puntos[i] = getCardValue(playerCard1) + getCardValue(playerCard2);
-            puntosLabel.setText("Puntos: " + puntos[i]);
+                while (clientB.isOpen()) {
+
+                    BlackjackClient.Pair pair = ((BlackjackClient) clientB).parseMessage();
+                    BlackjackClient.Action action = pair.action;
+                    var message = pair.map;
+                    //System.out.println(message);
+
+                    // Pretty print
+                    if (message != null && !message.isEmpty()) {
+                        System.out.println("Game state:");
+                        for (Map.Entry<?, ?> entry : message.entrySet()) {
+                            System.out.println("\t" + entry.getKey() + ": " + entry.getValue());
+                        }
+                        System.out.println(action);
+                    }
+
+                    switch (action) {
+                        case BET:
+                            System.out.print("Enter bet amount: ");
+                            String bet = scanner.nextLine();
+                            ;
+                            if (bet.equals("pause")) {
+                                clientB.send("{\"action\": \"pause\"}");
+                                break;
+                            }
+                            clientB.send("{\"action\": \"bet\", \"value\": \"" + bet + "\"}");
+                            break;
+                        case TURN:
+                            //            System.out.println(message);
+                            System.out.print("Enter action (hit/stand): ");
+                            String turn = scanner.nextLine();
+                            if (turn.equals("pause")) {
+                                clientB.send("{\"action\": \"pause\"}");
+                                break;
+                            }
+                            clientB.send("{\"action\": \"" + turn + "\"}");
+                            break;
+                        case DRAW:
+                            System.out.println("Drawing card...");
+                            System.out.println(message);
+                            break;
+                        case END:
+                            System.out.println("Game ended.");
+                            System.out.println(message);
+                            break;
+                        case INFO:
+                            Platform.runLater(() -> iniciarJuego(message));
+                            break;
+                        case NONE:
+                        default:
+                            break;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        bjThread.start();
+    }
+
+    private void iniciarJuego(Map<String, String> message) {
+        // Obtener las cartas de cada jugador del mensaje recibido
+        Map<String, List<Map<String, String>>> cards = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : message.entrySet()) {
+            String jugador = entry.getKey();
+            List<Map<String, String>> playerCards = new ArrayList<>();
+            String[] cardStrings = entry.getValue().split(";");
+
+            for (String cardString : cardStrings) {
+                String[] cardParts = cardString.split(",");
+                Map<String, String> cardMap = new HashMap<>();
+                cardMap.put("suit", cardParts[0]);
+                cardMap.put("value", cardParts[1]);
+                playerCards.add(cardMap);
+            }
+
+            cards.put(jugador, playerCards);
+        }
+
+        // Iterar sobre las cartas de cada jugador y mostrarlas en las HBox respectivas
+        for (Map.Entry<String, List<Map<String, String>>> entry : cards.entrySet()) {
+            String jugador = entry.getKey();
+            HBox playerCardBox = getPlayerCardBox(jugador);
+            playerCardBox.getChildren().clear(); // Limpiar las cartas anteriores
+
+            // Obtener las cartas del jugador actual
+            List<Map<String, String>> playerCards = entry.getValue();
+
+            // Mostrar las cartas del jugador actual en su HBox
+            for (Map<String, String> card : playerCards) {
+                String suit = card.get("suit").toLowerCase();
+                String imageName = card.get("value") + "_of_" + suit + ".jpg";
+                Image cardImage = new Image(getClass().getResource("/images/" + skin + "/" + imageName).toExternalForm());
+                ImageView cardImageView = createCardImageView(cardImage);
+                playerCardBox.getChildren().add(cardImageView);
+            }
         }
     }
 
-    @FXML
-    private void hitAction() {
-        HBox playerCardBox = playerCardBox1; // Modificar para el jugador adecuado
-        Label puntosLabel = puntosJugador1; // Modificar para el jugador adecuado
 
-        // Añadir una carta y actualizar puntos
-        Image nuevaCarta = getRandomCardImage();
-        playerCardBox.getChildren().add(createCardImageView(nuevaCarta));
-
-        int valorCarta = getCardValue(nuevaCarta);
-        puntos[0] += valorCarta;
-        puntosLabel.setText("Puntos: " + puntos[0]);
-
-        // Verificar si el jugador pierde o gana
-        if (puntos[0] > 21) {
-            // Mostrar mensaje de derrota
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Derrota");
-            alert.setHeaderText(null);
-            alert.setContentText("Te has pasado de 21 puntos. Has perdido.");
-            alert.showAndWait();
-        } else if (puntos[0] == 21) {
-            // Mostrar mensaje de victoria
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Victoria");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Has alcanzado 21 puntos! Has ganado.");
-            alert.showAndWait();
+    private HBox getPlayerCardBox(String jugador) {
+        switch (jugador) {
+            case "a":
+                return playerCardBox1;
+            case "b":
+                return playerCardBox2;
+            // Agrega más casos según la cantidad de jugadores que tengas
+            default:
+                return null; // Manejar el caso por defecto según tu lógica
         }
-    }
-
-    @FXML
-    private void standAction() {
-        // Lógica para manejar el botón "Stand"
-
-        // Sacar cartas para el crupier hasta llegar a un mínimo de 17 puntos
-        while (puntosDealer < 17) {
-            Image nuevaCarta = getRandomCardImage();
-            dealerCardBox.getChildren().add(createCardImageView(nuevaCarta));
-            puntosDealer += getCardValue(nuevaCarta);
-        }
-
-        // Actualizar la etiqueta de puntos del crupier
-        puntosCrupier.setText("Puntos: " + puntosDealer);
-
-        // Determinar el resultado de la partida
-        Alert alert;
-        if (puntosDealer > 21) {
-            // Crupier se pasa de 21, jugador gana
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Victoria");
-            alert.setHeaderText(null);
-            alert.setContentText("¡El crupier se pasó de 21! Has ganado.");
-        } else if (puntosDealer == puntosJugador) {
-            // Empate entre crupier y jugador
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Empate");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Es un empate!");
-        } else if (puntosDealer > puntosJugador) {
-            // Crupier tiene más puntos que el jugador
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Derrota");
-            alert.setHeaderText(null);
-            alert.setContentText("El crupier tiene más puntos. Has perdido.");
-        } else {
-            // Crupier tiene menos puntos que el jugador
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Victoria");
-            alert.setHeaderText(null);
-            alert.setContentText("¡Has ganado!");
-        }
-
-        alert.showAndWait();
-    }
-
-    @FXML
-    private void exitApplication() {
-        Platform.exit();
     }
 
     private Image getRandomCardImage() {
@@ -380,7 +363,7 @@ public class Juego {
         String cardImageName = cardNumber + "_of_" + suit + ".jpg";
 
         // Cargar y devolver la imagen
-        return new Image(getClass().getResource("/images/cards/" + cardImageName).toExternalForm());
+        return new Image(getClass().getResource("/images/" + skin + "/" + cardImageName).toExternalForm());
     }
 
     private int getCardValue(Image cardImage) {

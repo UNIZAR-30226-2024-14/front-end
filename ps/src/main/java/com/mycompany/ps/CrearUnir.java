@@ -19,7 +19,7 @@ public class CrearUnir {
 //            System.out.println("espero");
 //        }
         // Configurar los valores del ID y del token en la clase Juego
-        Juego.configurarJuego(id, Auth.devolverToken());
+        Juego.configurarJuego(id, Auth.devolverToken(), Auth.devolverNombre());
         App.setRoot("juego");
     }
 
@@ -38,8 +38,13 @@ public class CrearUnir {
 //                System.out.println("espero");
 //            }
             // Configurar los valores del ID y del token en la clase Juego
-            Juego.configurarJuego(id, Auth.devolverToken());
+            Juego.configurarJuego(id, Auth.devolverToken(), Auth.devolverNombre());
             App.setRoot("juego");
         }
+    }
+    
+    @FXML
+    private void volver() throws IOException {
+        App.setRoot("elegir_juego");
     }
 }

@@ -9,6 +9,7 @@
     <children>
         <Button fx:id="crear" text="CREAR SALA" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#crearSala" />
         <Button fx:id="unir" text="UNIRSE A UNA SALA" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#unirSala" />
+        <Button fx:id="volver" text="VOLVER" styleClass="btn-primary2, btn-lg2" prefWidth="400" prefHeight="50" onAction="#volver" />
         <Label fx:id="mesasDisponibles" text="Mesas: 0" visible="false" />
     </children>
     <padding>

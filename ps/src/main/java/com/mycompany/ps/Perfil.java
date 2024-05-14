@@ -5,10 +5,14 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import com.mycompany.ps.JuegoLocal;
+<<<<<<< Updated upstream
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+=======
+import com.mycompany.ps.Juego;
+>>>>>>> Stashed changes
 
 public class Perfil {
 
@@ -56,11 +60,13 @@ public class Perfil {
     @FXML
     public void cambiar1(){
         JuegoLocal.cambiarSkin("cards");
+        Juego.cambiarSkin("cards");
     }
     
     @FXML
     public void cambiar2(){
         JuegoLocal.cambiarSkin("cards2");
+        Juego.cambiarSkin("cards2");
     }
     
     @FXML

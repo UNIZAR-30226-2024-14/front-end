@@ -35,11 +35,13 @@ public class BlackjackClient extends WebSocketClient {
   private final Queue<Map<String, String>> messages;
   private final String room;
   private final String access_token;
-  public BlackjackClient(String room, String access_token, String base_uri) throws Exception {
+  private final String name;
+  public BlackjackClient(String room, String access_token, String name, String base_uri) throws Exception {
     super(new URI(base_uri + room + "?access_token=" + access_token));
     this.messages = new LinkedList<>();
     this.room = room;
     this.access_token = access_token;
+    this.name = name;
   }
 
   @Override
@@ -74,7 +76,7 @@ public class BlackjackClient extends WebSocketClient {
 
     var message = messages.poll();
 
-    if (!message.get("turn").equals(access_token))
+    if (!message.get("turn").equals(name))
       return new Pair(Action.INFO, message);
 
     // Our turn
