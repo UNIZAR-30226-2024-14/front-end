@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import org.java_websocket.client.WebSocketClient;
+import java.util.Map;
 
 public class Juego {
 
@@ -78,6 +79,7 @@ public class Juego {
     private static String token;
 
     WebSocketClient client;
+    WebSocketClient clientB;
     
     @FXML
     private Label chatMessage1;
@@ -138,6 +140,8 @@ public class Juego {
 
     @FXML
     private void comenzarPartida() {
+        
+        Scanner scanner = new Scanner(System.in);
 
         // Crear un hilo para manejar la funcionalidad del chat simultáneamente
         Thread chatThread = new Thread(() -> {
@@ -168,8 +172,80 @@ public class Juego {
             }
         });
         chatThread.start();
+        
+        Thread blackjackThread = new Thread(() -> {
+            try{
+                clientB = new BlackjackClient(String.valueOf(id), token, ws_uri + blackjack_uri);
+                clientB.connect();
 
+                System.out.println("Connecting to websocket server...");
+                while (!clientB.isOpen() && !clientB.isClosed()) {
+                  Thread.sleep(100);
+                }
 
+                if (clientB.isClosed()) {
+                  System.out.println("Connection failed.");
+                  System.exit(1);
+                }
+                
+                System.out.println("Connected to BJ server.");
+                
+                while (clientB.isOpen()) {
+                    
+                    System.out.println("Entroooo");
+                    BlackjackClient.Pair pair = ((BlackjackClient)clientB).parseMessage();
+                    BlackjackClient.Action action = pair.action;
+                    var message = pair.map;
+
+                    // Pretty print
+                    if (message != null && !message.isEmpty()) {
+                      System.out.println("Game state:");
+                      for (Map.Entry<?, ?> entry : message.entrySet()) {
+                        System.out.println("\t"+ entry.getKey() + ": " + entry.getValue());
+                      }
+                    }
+
+                    switch (action) {
+//                      case BET:
+//                        System.out.print("Enter bet amount: ");
+//                        String bet = scanner.nextLine();
+//                        if (bet.equals("pause")) {
+//                          client.send("{\"action\": \"pause\"}");
+//                          break;
+//                        }
+//                        client.send("{\"action\": \"bet\", \"value\": \""+ bet + "\"}");
+//                        break;
+                      case TURN:
+            //            System.out.println(message);
+                        System.out.print("Enter action (hit/stand): ");
+                        String turn = scanner.nextLine();
+                        if (turn.equals("pause")) {
+                          client.send("{\"action\": \"pause\"}");
+                          break;
+                        }
+                        client.send("{\"action\": \""+ turn + "\"}");
+                        break;
+                      case DRAW:
+                        System.out.println("Drawing card...");
+                        System.out.println(message);
+                        break;
+                      case END:
+                        System.out.println("Game ended.");
+                        System.out.println(message);
+                        break;
+                      case INFO:
+                        System.out.println(message);
+                        break;
+                      case NONE:
+                      default: break;
+                    }
+                  }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        blackjackThread.start();
+        
         // Cambiar el fondo a verde para indicar el inicio de la partida
         vbox.setStyle("-fx-background-image: url('images/Tapete3.png');");
 
