@@ -29,6 +29,7 @@ import java.util.HashMap;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.util.Duration;
+import com.google.gson.Gson;
 
 public class Juego {
 
@@ -279,17 +280,14 @@ public class Juego {
                     BlackjackClient.Pair pair = ((BlackjackClient) clientB).parseMessage();
 
                     BlackjackClient.Action action = pair.action;
-                    Map<String, String> message = pair.map;
+                    var message = pair.map;
 
                     // Pretty print
                     if (message != null && !message.isEmpty()) {
                         System.out.println("Game state:");
-                        for (Map.Entry<String, String> entry : message.entrySet()) {
-                            System.out.println("\t" + entry.getKey() + ": " + entry.getValue());
-                            //System.out.println("\t" + entry.getKey() + ": " + entry.getValue().toString());
-
+                        for (Map.Entry<?, ?> entry : message.entrySet()) {
+                          System.out.println("\t"+ entry.getKey() + ": " + entry.getValue());
                         }
-                        System.out.println(action);
                     }
 
                     switch (action) {
@@ -303,8 +301,22 @@ public class Juego {
                             clientB.send("{\"action\": \"bet\", \"value\": \"" + bet + "\"}");
                             break;
                         case TURN:
-                            // No necesitas obtener las cartas aquí
-                            // Solo necesitas enviar el comando del jugador
+                            // Obtener la lista de cartas del jugador del Map
+                            // Obtener el objeto LinkedTreeMap que contiene las cartas del jugador "luca" del Map
+//                            LinkedTreeMap<String, Object> lucaCardsMap = (Map<String, Object>) message.get("cards");
+//
+//                            // Convertir el objeto LinkedTreeMap a una cadena JSON
+//                            Gson gson = new Gson();
+//                            String cards = gson.toJson(lucaCardsMap);
+//
+//                            // Verificar si el jugador "luca" tiene cartas
+//                            if (cards != null && !cards.isEmpty()) {
+//                                // Imprimir las cartas del jugador "luca"
+//                                System.out.println("Cartas del jugador luca: " + cards);
+//                            } else {
+//                                System.out.println("El jugador luca no tiene cartas.");
+//                            }
+
                             System.out.print("Enter action (hit/stand): ");
                             String turn = scanner.nextLine();
                             if (turn.equals("pause")) {
@@ -315,38 +327,14 @@ public class Juego {
                             break;
                         case DRAW:
                             System.out.println("Drawing card...");
-                            // Obtener las cartas del jugador
-                            List<Map<String, String>> playerCards = new ArrayList<>();
-                            Object cardsObject = message.get("cards");
-
-                            if (cardsObject instanceof List) {
-                                List<?> cardsList = (List<?>) cardsObject;
-                                for (Object card : cardsList) {
-                                    if (card instanceof Map) {
-                                        @SuppressWarnings("unchecked")
-                                        Map<String, String> cardMap = (Map<String, String>) card;
-                                        playerCards.add(cardMap);
-                                    }
-                                }
-
-                                System.out.println("Player's cards:");
-                                for (Map<String, String> card : playerCards) {
-                                    String value = card.get("value");
-                                    String suit = card.get("suit");
-                                    System.out.println("\tValue: " + value + ", Suit: " + suit);
-                                }
-                            } else {
-                                System.out.println("Error: 'cards' is not a list");
-                            }
+                            System.out.println(message);
                             break;
-
                         case END:
                             System.out.println("Game ended.");
                             System.out.println(message);
                             break;
                         case INFO:
-                            // No necesitas llamar a iniciarJuego() directamente aquí
-                            // Puedes usar Platform.runLater() si necesitas interactuar con la interfaz de usuario
+                            System.out.println(message);
                             break;
                         case NONE:
                         default:

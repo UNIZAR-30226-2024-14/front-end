@@ -9,6 +9,6 @@ public class Exito_registro {
 
     @FXML
     private void irAMenu() throws IOException {
-        App.setRoot("secondary");
+        App.setRoot("iniciar_sesion");
     }
 }
