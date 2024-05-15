@@ -105,18 +105,18 @@ public class Juego {
 
     @FXML
     private TextField chatInput;
-    
+
     @FXML
     private ImageView animationImageView;
-    
+
     @FXML
     private void initialize() {
         // Cargar la imagen de la animación
         Image animationImage = new Image(getClass().getResourceAsStream("/images/start.gif"));
-        
+
         // Establecer la imagen en el ImageView
         animationImageView.setImage(animationImage);
-        
+
         // Crear una transición de traducción para mover la imagen horizontalmente
         TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(5), animationImageView);
         translateTransition.setFromX(0); // Posición inicial en x
@@ -183,7 +183,7 @@ public class Juego {
     @FXML
     private void comenzarPartida() {
         animationImageView.setImage(null);
-        
+
         Image lgImage = new Image(getClass().getResourceAsStream("/images/Lg2.png"));
         animationImageView.setImage(lgImage);
         animationImageView.setLayoutX(50); // Cambia el valor a la posición X deseada
@@ -193,7 +193,7 @@ public class Juego {
 
         Insets padding = new Insets(-550.0, 20.0, 20.0, 20.0);
         vbox.setPadding(padding);
-        
+
         // Crear un hilo para manejar la funcionalidad del chat simultáneamente
         Thread chatThread = new Thread(() -> {
             try {
@@ -253,11 +253,13 @@ public class Juego {
         puntosJugador3.setVisible(true);
         puntosJugador4.setVisible(true);
         puntosCrupier.setVisible(true);
+        chatMessage1.setVisible(true);
+        chatMessage2.setVisible(true);
+        chatInput.setVisible(true);
+        enviar.setVisible(true);
 
-        Thread bjThread = new Thread(() 
-            -> {
+        Thread bjThread = new Thread(() -> {
             try {
-
                 clientB = new BlackjackClient(String.valueOf(id), token, nombre, ws_uri + blackjack_uri);
                 clientB.connect();
 
@@ -274,17 +276,19 @@ public class Juego {
                 System.out.println("Connected to BJ server.");
 
                 while (clientB.isOpen()) {
-
                     BlackjackClient.Pair pair = ((BlackjackClient) clientB).parseMessage();
+                    System.out.println(clientB.getClass().getName());
+
                     BlackjackClient.Action action = pair.action;
-                    var message = pair.map;
-                    //System.out.println(message);
+                    Map<String, String> message = pair.map;
 
                     // Pretty print
                     if (message != null && !message.isEmpty()) {
                         System.out.println("Game state:");
-                        for (Map.Entry<?, ?> entry : message.entrySet()) {
+                        for (Map.Entry<String, String> entry : message.entrySet()) {
                             System.out.println("\t" + entry.getKey() + ": " + entry.getValue());
+                            //System.out.println("\t" + entry.getKey() + ": " + entry.getValue().toString());
+
                         }
                         System.out.println(action);
                     }
@@ -293,7 +297,6 @@ public class Juego {
                         case BET:
                             System.out.print("Enter bet amount: ");
                             String bet = scanner.nextLine();
-                            ;
                             if (bet.equals("pause")) {
                                 clientB.send("{\"action\": \"pause\"}");
                                 break;
@@ -301,7 +304,8 @@ public class Juego {
                             clientB.send("{\"action\": \"bet\", \"value\": \"" + bet + "\"}");
                             break;
                         case TURN:
-                            //            System.out.println(message);
+                            // No necesitas obtener las cartas aquí
+                            // Solo necesitas enviar el comando del jugador
                             System.out.print("Enter action (hit/stand): ");
                             String turn = scanner.nextLine();
                             if (turn.equals("pause")) {
@@ -312,14 +316,38 @@ public class Juego {
                             break;
                         case DRAW:
                             System.out.println("Drawing card...");
-                            System.out.println(message);
+                            // Obtener las cartas del jugador
+                            List<Map<String, String>> playerCards = new ArrayList<>();
+                            Object cardsObject = message.get("cards");
+
+                            if (cardsObject instanceof List) {
+                                List<?> cardsList = (List<?>) cardsObject;
+                                for (Object card : cardsList) {
+                                    if (card instanceof Map) {
+                                        @SuppressWarnings("unchecked")
+                                        Map<String, String> cardMap = (Map<String, String>) card;
+                                        playerCards.add(cardMap);
+                                    }
+                                }
+
+                                System.out.println("Player's cards:");
+                                for (Map<String, String> card : playerCards) {
+                                    String value = card.get("value");
+                                    String suit = card.get("suit");
+                                    System.out.println("\tValue: " + value + ", Suit: " + suit);
+                                }
+                            } else {
+                                System.out.println("Error: 'cards' is not a list");
+                            }
                             break;
+
                         case END:
                             System.out.println("Game ended.");
                             System.out.println(message);
                             break;
                         case INFO:
-                            Platform.runLater(() -> iniciarJuego(message));
+                            // No necesitas llamar a iniciarJuego() directamente aquí
+                            // Puedes usar Platform.runLater() si necesitas interactuar con la interfaz de usuario
                             break;
                         case NONE:
                         default:
@@ -331,6 +359,7 @@ public class Juego {
             }
         });
         bjThread.start();
+
     }
 
     private void iniciarJuego(Map<String, String> message) {
@@ -372,7 +401,6 @@ public class Juego {
             }
         }
     }
-
 
     private HBox getPlayerCardBox(String jugador) {
         switch (jugador) {
