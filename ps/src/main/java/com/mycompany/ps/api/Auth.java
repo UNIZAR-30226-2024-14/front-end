@@ -85,7 +85,13 @@ public class Auth {
         jsonMap = gson.fromJson(response.getBody(), jsonMap.getClass());
         jsonMap.put("code", response.getCode());
         nombre = username;
-        tokenUsuario = jsonMap.get("access_token").toString();
+        Object accessTokenObj = jsonMap.get("access_token");
+        if (accessTokenObj != null) {
+            tokenUsuario = accessTokenObj.toString();
+        } else {
+            // Manejar el caso en el que no se encuentra el token de acceso
+            tokenUsuario = null; // O cualquier otro manejo que necesites
+        }
 
         return jsonMap;
     }

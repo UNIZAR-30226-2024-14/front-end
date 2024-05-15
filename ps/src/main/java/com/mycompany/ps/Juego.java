@@ -277,7 +277,6 @@ public class Juego {
 
                 while (clientB.isOpen()) {
                     BlackjackClient.Pair pair = ((BlackjackClient) clientB).parseMessage();
-                    System.out.println(clientB.getClass().getName());
 
                     BlackjackClient.Action action = pair.action;
                     Map<String, String> message = pair.map;
